@@ -1,9 +1,11 @@
 import Providers from "@/redux/provider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import NavBar from "./Components/NavBar";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Nunito } from "next/font/google";
+
+const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Home",
@@ -17,8 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>{children}</Providers>
+      <body className={font.className}>
+        <>
+          <NavBar />
+        </>
+        <div className="pb-20 pt-28">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );
