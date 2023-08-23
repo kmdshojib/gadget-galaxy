@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { RxAvatar } from "react-icons/rx";
 
 const Profile: React.FC = () => {
@@ -14,6 +15,8 @@ const Profile: React.FC = () => {
         className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
       >
         <li>
+          <Link href="/signin">SignIn</Link>
+          <Link href="/register">Register</Link>
           <a>Logout</a>
         </li>
       </ul>

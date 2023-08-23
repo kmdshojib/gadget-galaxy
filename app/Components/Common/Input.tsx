@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
   required,
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <input
         id={id}
         disabled={disabled}
