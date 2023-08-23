@@ -1,7 +1,7 @@
 import Providers from "@/redux/provider";
 import "./globals.css";
 import type { Metadata } from "next";
-import NavBar from "./Components/NavBar";
+import NavBar from "@/app/Components/Navbar/NavBar";
 
 import { Nunito } from "next/font/google";
 
