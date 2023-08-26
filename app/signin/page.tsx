@@ -3,6 +3,7 @@ import React from "react";
 import Input from "../Components/Common/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../Components/Common/Button";
+import Link from "next/link";
 
 const SignIn: React.FC = () => {
   const {
@@ -26,7 +27,11 @@ const SignIn: React.FC = () => {
             Sign in to access your account
           </p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} action="" className="space-y-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          action=""
+          className="space-y-12"
+        >
           <div className="space-y-4">
             <div>
               <Input
@@ -39,7 +44,7 @@ const SignIn: React.FC = () => {
               />
             </div>
             <div>
-              <div className="flex justify-between mb-2">
+              <div className="flex justify-end mb-2">
                 <a
                   rel="noopener noreferrer"
                   href="#"
@@ -65,14 +70,14 @@ const SignIn: React.FC = () => {
             </div>
             <p className="px-6 text-sm text-center text-gray-600">
               Don&apos;t have an account yet?
-              <a
+              <Link
                 rel="noopener noreferrer"
-                href="#"
+                href="/register"
                 className="hover:underline font-light text-neutral-500"
                 data-abc="true"
               >
                 Sign up
-              </a>
+              </Link>
               .
             </p>
           </div>
