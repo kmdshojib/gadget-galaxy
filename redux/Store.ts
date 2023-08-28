@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+import authReducer from "./feaures/authSlice";
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    auth: authReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
