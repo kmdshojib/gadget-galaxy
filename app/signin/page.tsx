@@ -1,11 +1,18 @@
 "use client";
+
 import React from "react";
 import Input from "../Components/Common/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../Components/Common/Button";
 import Link from "next/link";
+import { useLoginUserMutation } from "@/redux/Services/authService";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/features/authSlice";
+import { toast } from "react-toastify";
 
 const SignIn: React.FC = () => {
+  const [loginMutation, { isLoading }] = useLoginUserMutation();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -16,7 +23,16 @@ const SignIn: React.FC = () => {
       password: "",
     },
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const result = await loginMutation(data);
+    if ("data" in result) {
+      dispatch(setUser(result.data));
+      toast.success("User Logged in successfully");
+    } else {
+      toast.error("Login Failed check your email or password!");
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
