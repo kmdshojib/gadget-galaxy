@@ -20,4 +20,4 @@ export const authService = apiService.injectEndpoints({
   }),
 });
 
-export const { useLoginUserMutation } = authService;
+export const { useLoginUserMutation,useRegisterUserMutation } = authService;

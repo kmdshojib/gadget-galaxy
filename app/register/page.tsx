@@ -4,8 +4,11 @@ import Input from "../Components/Common/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../Components/Common/Button";
 import Link from "next/link";
+import { useRegisterUserMutation } from "@/redux/Services/authService";
+import { toast } from "react-toastify";
 
 const Register: React.FC = () => {
+  const [resgisterUser, { isLoading }] = useRegisterUserMutation();
   const {
     register,
     handleSubmit,
@@ -15,10 +18,27 @@ const Register: React.FC = () => {
       name: "",
       email: "",
       password: "",
-      userType: "",
+      role: "",
+      image: "",
     },
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    formData.append("password", data.password);
+    formData.append("email", data.email);
+    formData.append("name", data.name);
+    formData.append("role", data.role);
+
+    try {
+      const result = await resgisterUser(formData);
+      if (result) {
+        toast.success("User Successfully registered");
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -66,10 +86,20 @@ const Register: React.FC = () => {
               />
             </div>
             <div>
+              <Input
+                id="image"
+                label="Profile Photo"
+                type="file"
+                register={register}
+                errors={errors}
+                required
+              />
+            </div>
+            <div>
               <div className="w-full relative">
                 <select
-                  id="userType"
-                  {...register("userType", { required: true })}
+                  id="role"
+                  {...register("role", { required: true })}
                   className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none transition`}
                 >
                   <option value="buyer">Buyer</option>

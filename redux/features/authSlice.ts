@@ -6,7 +6,8 @@ export interface IUser {
     name: string | null;
     email: string | null;
     role: string | null;
-  };
+    imageUrl: string | null;
+  } | null;
 }
 
 const initialState: IUser = {
@@ -14,7 +15,8 @@ const initialState: IUser = {
   user: {
     name: null,
     email: null,
-    role: null
+    role: null,
+    imageUrl: null,
   }
 };
 
@@ -30,11 +32,7 @@ const authSlice = createSlice({
       }
     },
     logoutUser: (state) => {
-      state.user = {
-        name: null,
-        email: null,
-        role: null
-      };
+      state.user = null;
       state.token = null;
       localStorage.removeItem('token');
     },
