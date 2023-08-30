@@ -17,7 +17,7 @@ const initialState: IUser = {
     email: null,
     role: null,
     imageUrl: null,
-  }
+  } || null
 };
 
 const authSlice = createSlice({

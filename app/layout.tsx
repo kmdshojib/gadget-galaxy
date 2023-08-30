@@ -5,7 +5,7 @@ import NavBar from "@/app/Components/Navbar/NavBar";
 
 import { Nunito } from "next/font/google";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -22,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <>
-          <NavBar />
-        </>
-        <div className="pb-20 pt-28">
-          <Providers>{children}</Providers>
-        </div>
+        <Providers>
+          <>
+            <NavBar />
+          </>
+          <div className="pb-20 pt-28">{children}</div>
+        </Providers>
         <ToastContainer />
       </body>
     </html>

@@ -33,7 +33,9 @@ const SignIn: React.FC = () => {
       toast.error("Login Failed check your email or password!");
     }
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col w-[360px] md:w-[450px] p-6 rounded-md sm:p-10 bg-gray-50 shadow-xl">

@@ -21,15 +21,34 @@ const Input: React.FC<InputProps> = ({
   disabled,
   required,
 }) => {
+  const isFileType = type === "file";
+
   return (
     <div className="w-full relative">
-      <input
-        id={id}
-        disabled={disabled}
-        {...register(id, { required })}
-        placeholder=" "
-        type={type}
-        className={`
+      {isFileType ? (
+        <label
+          htmlFor={id}
+          className={`block w-full p-4 pt-6 font-light bg-white border-2 outline-none transition ${
+            errors[id] ? "border-rose-500" : "border-neutral-300"
+          }`}
+        >
+          {label}
+          <input
+            id={id}
+            disabled={disabled}
+            {...register(id, { required })}
+            type="file"
+            className="hidden"
+          />
+        </label>
+      ) : (
+        <input
+          id={id}
+          disabled={disabled}
+          {...register(id, { required })}
+          placeholder=" "
+          type={type}
+          className={`
                 peer
                 w-full
                 p-4
@@ -44,7 +63,8 @@ const Input: React.FC<InputProps> = ({
                 ${errors[id] ? "border-rose-500" : "border-neutral-300"}
                 ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
                 `}
-      />
+        />
+      )}
       <label
         className={`
                 absolute

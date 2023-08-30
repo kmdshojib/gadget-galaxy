@@ -39,7 +39,9 @@ const Register: React.FC = () => {
       toast.error(error?.message);
     }
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col w-[360px] md:w-[620px] p-6 rounded-md sm:p-10 bg-gray-50 shadow-xl">
@@ -100,14 +102,14 @@ const Register: React.FC = () => {
                 <select
                   id="role"
                   {...register("role", { required: true })}
-                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none transition`}
+                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition`}
                 >
                   <option value="buyer">Buyer</option>
                   <option value="seller">Seller</option>
                 </select>
                 <label
                   htmlFor="userType"
-                  className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0peer-focus:-translate-y-4`}
+                  className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-4`}
                 >
                   Choose Account Type:
                 </label>
