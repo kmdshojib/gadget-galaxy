@@ -9,9 +9,12 @@ import { useLoginUserMutation } from "@/redux/Services/authService";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/features/authSlice";
 import { toast } from "react-toastify";
+import Spinner from "../Components/Common/Spinner";
+import { useRouter } from "next/navigation";
 
 const SignIn: React.FC = () => {
   const [loginMutation, { isLoading }] = useLoginUserMutation();
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     register,
@@ -29,12 +32,13 @@ const SignIn: React.FC = () => {
     if ("data" in result) {
       dispatch(setUser(result.data));
       toast.success("User Logged in successfully");
+      router.push("/");
     } else {
       toast.error("Login Failed check your email or password!");
     }
   };
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   return (
     <div className="flex items-center justify-center">

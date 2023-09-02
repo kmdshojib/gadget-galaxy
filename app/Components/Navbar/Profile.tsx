@@ -19,7 +19,13 @@ const Profile: React.FC = () => {
           {!user?.imageUrl ? (
             <RxAvatar size={40} />
           ) : (
-            <Image src={user.imageUrl} height={40} width={40} alt="user" />
+            <Image
+              className="object-center"
+              src={user.imageUrl}
+              height={40}
+              width={40}
+              alt="user"
+            />
           )}
         </div>
       </label>
@@ -27,7 +33,7 @@ const Profile: React.FC = () => {
         tabIndex={1}
         className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
       >
-        <li>
+        <li >
           {!token ? (
             <>
               <Link href="/signin">SignIn</Link>

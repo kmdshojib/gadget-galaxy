@@ -6,9 +6,12 @@ import Button from "../Components/Common/Button";
 import Link from "next/link";
 import { useRegisterUserMutation } from "@/redux/Services/authService";
 import { toast } from "react-toastify";
+import Spinner from "../Components/Common/Spinner";
+import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
   const [resgisterUser, { isLoading }] = useRegisterUserMutation();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -32,15 +35,16 @@ const Register: React.FC = () => {
 
     try {
       const result = await resgisterUser(formData);
-      if (result) {
+      if ("data" in result) {
         toast.success("User Successfully registered");
+        router.push("/signin");
       }
     } catch (error: any) {
       toast.error(error?.message);
     }
   };
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   return (
     <div className="flex items-center justify-center">
