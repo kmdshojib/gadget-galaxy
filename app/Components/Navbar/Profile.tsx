@@ -16,7 +16,11 @@ const Profile: React.FC = () => {
     <div className="dropdown dropdown-end">
       <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          {!user?.imageUrl ? <RxAvatar size={40} /> : <Image src={user.imageUrl} height={40} width={40} alt="user"/>}
+          {!user?.imageUrl ? (
+            <RxAvatar size={40} />
+          ) : (
+            <Image src={user.imageUrl} height={40} width={40} alt="user" />
+          )}
         </div>
       </label>
       <ul
