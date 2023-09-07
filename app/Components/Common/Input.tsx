@@ -1,15 +1,19 @@
 "use client";
 
+import React, { useState } from "react";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 
 interface InputProps {
   id: string;
-  label: string;
+  label: string | boolean;
   type: string;
   disabled?: boolean;
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  fileName?: string[];
+  multiple?: boolean;
+  setFileName?: (fileName: string[]) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -20,9 +24,21 @@ const Input: React.FC<InputProps> = ({
   errors,
   disabled,
   required,
+  fileName,
+  setFileName,
+  multiple = false,
 }) => {
   const isFileType = type === "file";
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (selectedFiles && setFileName) {
+      const newFileNames = Array.from(selectedFiles).map((file) => file.name);
+      setFileName(newFileNames);
+    } else if (setFileName) {
+      setFileName([]);
+    }
+  };
   return (
     <div className="w-full relative">
       {isFileType ? (
@@ -32,13 +48,15 @@ const Input: React.FC<InputProps> = ({
             errors[id] ? "border-rose-500" : "border-neutral-300"
           }`}
         >
-          {label}
+          {fileName}
           <input
             id={id}
             disabled={disabled}
             {...register(id, { required })}
             type="file"
             className="hidden"
+            onChange={handleFileChange}
+            multiple={multiple}
           />
         </label>
       ) : (

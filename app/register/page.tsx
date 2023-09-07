@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Input from "../Components/Common/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../Components/Common/Button";
@@ -10,6 +10,7 @@ import Spinner from "../Components/Common/Spinner";
 import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
+  const [fileNames, setFileNames] = useState<string[]>([]);
   const [resgisterUser, { isLoading }] = useRegisterUserMutation();
   const router = useRouter();
   const {
@@ -91,16 +92,7 @@ const Register: React.FC = () => {
                 required
               />
             </div>
-            <div>
-              <Input
-                id="image"
-                label="Profile Photo"
-                type="file"
-                register={register}
-                errors={errors}
-                required
-              />
-            </div>
+
             <div>
               <div className="w-full relative">
                 <select
@@ -118,6 +110,18 @@ const Register: React.FC = () => {
                   Choose Account Type:
                 </label>
               </div>
+            </div>
+            <div>
+              <Input
+                id="image"
+                label="Choose Profile Photo"
+                type="file"
+                register={register}
+                errors={errors}
+                fileName={fileNames}
+                setFileName={setFileNames}
+                required
+              />
             </div>
           </div>
           <div className="space-y-2">
