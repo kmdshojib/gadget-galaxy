@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
         tabIndex={1}
         className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
       >
-        <li >
+        <li>
           {!token ? (
             <>
               <Link href="/signin">SignIn</Link>
@@ -42,6 +42,9 @@ const Profile: React.FC = () => {
           ) : (
             <>
               <p>{user?.name}</p>
+              {user?.role === "seller" && (
+                <Link href="/addproduct">Add Product</Link>
+              )}
               <p onClick={handleLogout}>Logout</p>
             </>
           )}
