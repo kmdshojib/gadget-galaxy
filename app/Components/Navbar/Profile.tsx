@@ -4,6 +4,13 @@ import { logoutUser } from "@/redux/features/authSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { RxAvatar } from "react-icons/rx";
+import { IoAddCircleOutline } from "react-icons/io5";
+import {
+  BiLogOutCircle,
+  BiSolidLogInCircle,
+  BiSolidUserPlus,
+  BiUser,
+} from "react-icons/bi";
 
 const Profile: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth);
@@ -36,16 +43,37 @@ const Profile: React.FC = () => {
         <li>
           {!token ? (
             <>
-              <Link href="/signin">SignIn</Link>
-              <Link href="/register">Register</Link>
+              <Link href="/signin" className="hover:text-rose-500 transition">
+                <BiSolidLogInCircle size={18} />
+                SignIn
+              </Link>
+              <Link href="/register" className="hover:text-rose-500 transition">
+                <BiSolidUserPlus size={18} />
+                Register
+              </Link>
             </>
           ) : (
             <>
-              <p>{user?.name}</p>
+              <p className="hover:text-rose-500 transition">
+                <BiUser size={18} />
+                {user?.name}
+              </p>
               {user?.role === "seller" && (
-                <Link href="/addproduct">Add Product</Link>
+                <Link
+                  href="/addproduct"
+                  className="hover:text-rose-500 transition"
+                >
+                  <IoAddCircleOutline size={18} />
+                  Add Product
+                </Link>
               )}
-              <p onClick={handleLogout}>Logout</p>
+              <p
+                onClick={handleLogout}
+                className="hover:text-rose-500 transition"
+              >
+                <BiLogOutCircle size={18} />
+                Logout
+              </p>
             </>
           )}
         </li>
