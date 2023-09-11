@@ -1,16 +1,19 @@
 "use client";
 
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Components/Common/Button";
 import { useAppSelector } from "../Hooks/useRedux";
 
 import { useState } from "react";
 import Input from "../Components/Common/Input";
-import Link from "next/link";
+import { useAddProductMutation } from "@/redux/Services/productService";
+import Spinner from "../Components/Common/Spinner";
+import { toast } from "react-toastify";
 
 const AddProduct: React.FC = () => {
   const [fileNames, setFileNames] = useState<string[]>([]);
   const { user } = useAppSelector((state) => state.auth);
+  const [addProduct, { isLoading }] = useAddProductMutation();
   const {
     register,
     handleSubmit,
@@ -18,15 +21,36 @@ const AddProduct: React.FC = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
-      email: "",
-      password: "",
-      role: "",
+      email: user?.email,
+      category: "",
+      price: "",
       image: "",
     },
   });
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
+    console.log(data);
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    formData.append("image", data.image[1]);
+    formData.append("laptopName", data.name);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("sellerEmail", data.email);
+
+    try {
+      const result = addProduct(formData);
+      if ("message" in result) {
+        toast.success("Product added successfully!");
+      }
+    } catch (err) {
+      err && toast.error("something went wrong");
+    }
+  };
   if (user?.role !== "seller") {
     return <div>404 not found!</div>;
+  }
+  if (isLoading) {
+    return <Spinner />;
   }
   return (
     <div className="flex items-center justify-center">
@@ -45,7 +69,7 @@ const AddProduct: React.FC = () => {
           <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 md:gap-3">
             <div className="md:mt-4">
               <Input
-                id="laptoName"
+                id="name"
                 label="Lapto Name"
                 type="text"
                 register={register}
@@ -56,11 +80,22 @@ const AddProduct: React.FC = () => {
 
             <div>
               <Input
-                id="Price"
+                id="price"
                 label="Price"
                 type="number"
                 register={register}
                 errors={errors}
+                required
+              />
+            </div>
+            <div>
+              <Input
+                id="email"
+                label="Serller Email"
+                type="email"
+                register={register}
+                errors={errors}
+                value={`${user?.email}`}
                 required
               />
             </div>
@@ -69,11 +104,11 @@ const AddProduct: React.FC = () => {
               <div className="w-full relative">
                 <select
                   id="laptopCategory"
-                  {...register("role", { required: true })}
+                  {...register("category", { required: true })}
                   className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition`}
                 >
-                  <option value="buyer">Gaming</option>
-                  <option value="seller">Seller</option>
+                  <option value="Gaming">Gaming</option>
+                  <option value="Ultra Book">Ultra Book</option>
                 </select>
                 <label
                   htmlFor="userType"
@@ -93,6 +128,7 @@ const AddProduct: React.FC = () => {
                 fileName={fileNames}
                 setFileName={setFileNames}
                 required
+                multiple={true}
               />
             </div>
           </div>
@@ -102,18 +138,6 @@ const AddProduct: React.FC = () => {
                 <Button label="Add" buttonType="submit" />
               </div>
             </div>
-            {/* <p className="px-6 text-sm text-center text-gray-600">
-              Have an account yet?
-              <Link
-                rel="noopener noreferrer"
-                href="/signin"
-                className="hover:underline font-light text-neutral-500"
-                data-abc="true"
-              >
-                SignIn
-              </Link>
-              .
-            </p> */}
           </div>
         </form>
       </div>

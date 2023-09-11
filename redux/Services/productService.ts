@@ -5,11 +5,11 @@ const productService = apiService.injectEndpoints({
     getProduct: build.query<null, null>({
       query: () => ({ method: "GET", url: "laptop/get" }),
     }),
-    addProduct: build.mutation<null, null>({
-      query: (productData) => ({
+    addProduct: build.mutation<any, any>({
+      query: (data) => ({
         method: "POST",
         url: "laptop/add",
-        data: productData
+        data: data
       }),
     })
   }),

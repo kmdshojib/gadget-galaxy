@@ -14,6 +14,7 @@ interface InputProps {
   fileName?: string[];
   multiple?: boolean;
   setFileName?: (fileName: string[]) => void;
+  value?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,20 +26,11 @@ const Input: React.FC<InputProps> = ({
   disabled,
   required,
   fileName,
-  setFileName,
-  multiple = false,
+  multiple,
+  value,
 }) => {
   const isFileType = type === "file";
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files;
-    if (selectedFiles && setFileName) {
-      const newFileNames = Array.from(selectedFiles).map((file) => file.name);
-      setFileName(newFileNames);
-    } else if (setFileName) {
-      setFileName([]);
-    }
-  };
   return (
     <div className="w-full relative">
       {isFileType ? (
@@ -55,7 +47,6 @@ const Input: React.FC<InputProps> = ({
             {...register(id, { required })}
             type="file"
             className="hidden"
-            onChange={handleFileChange}
             multiple={multiple}
           />
         </label>
@@ -66,6 +57,7 @@ const Input: React.FC<InputProps> = ({
           {...register(id, { required })}
           placeholder=" "
           type={type}
+          value={value}
           className={`
                 peer
                 w-full
