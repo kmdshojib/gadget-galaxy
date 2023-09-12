@@ -9,6 +9,7 @@ import Input from "../Components/Common/Input";
 import { useAddProductMutation } from "@/redux/Services/productService";
 import Spinner from "../Components/Common/Spinner";
 import { toast } from "react-toastify";
+import ErrorPage from "../Components/Common/Errorpage";
 
 const AddProduct: React.FC = () => {
   const [fileNames, setFileNames] = useState<string[]>([]);
@@ -47,7 +48,7 @@ const AddProduct: React.FC = () => {
     }
   };
   if (user?.role !== "seller") {
-    return <div>404 not found!</div>;
+    return <ErrorPage />;
   }
   if (isLoading) {
     return <Spinner />;
