@@ -103,7 +103,10 @@ const Register: React.FC = () => {
                   <select
                     id="role"
                     {...register("role", { required: true })}
-                    className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition`}
+                    className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition ${
+                      errors.role ? "border-rose-500" : "border-neutral-300"
+                    }
+                    ${errors.role ? "focus:border-rose-500" : "focus:border-black"}`}
                   >
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>

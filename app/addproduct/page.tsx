@@ -26,6 +26,7 @@ const AddProduct: React.FC = () => {
       category: "",
       price: "",
       image: "",
+      quantity: "",
     },
   });
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
@@ -37,6 +38,7 @@ const AddProduct: React.FC = () => {
     formData.append("category", data.category);
     formData.append("price", data.price);
     formData.append("sellerEmail", data.email);
+    formData.append("quantity", data.quantity);
 
     try {
       const result = addProduct(formData);
@@ -91,6 +93,16 @@ const AddProduct: React.FC = () => {
             </div>
             <div>
               <Input
+                id="quantity"
+                label="Quantity"
+                type="number"
+                register={register}
+                errors={errors}
+                required
+              />
+            </div>
+            <div>
+              <Input
                 id="email"
                 label="Serller Email"
                 type="email"
@@ -106,7 +118,14 @@ const AddProduct: React.FC = () => {
                 <select
                   id="laptopCategory"
                   {...register("category", { required: true })}
-                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition`}
+                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition${
+                    errors.category ? "border-rose-500" : "border-neutral-300"
+                  }
+                  ${
+                    errors.category
+                      ? "focus:border-rose-500"
+                      : "focus:border-black"
+                  }`}
                 >
                   <option value="Gaming">Gaming</option>
                   <option value="Ultra Book">Ultra Book</option>
@@ -120,9 +139,12 @@ const AddProduct: React.FC = () => {
               </div>
             </div>
             <div>
+              <span className="text-rose-500 text-xs font-bold">
+                Note: You Can only Upload two Images!
+              </span>
               <Input
                 id="image"
-                label="Choose Profile Photo"
+                label="Choose Image for Your Laptop!"
                 type="file"
                 register={register}
                 errors={errors}
