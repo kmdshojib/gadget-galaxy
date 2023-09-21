@@ -5,8 +5,8 @@ import { apiService } from "./api/api";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import authReducer from "./features/authSlice";
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import persistReducer from "redux-persist/es/persistReducer";
+import storage from './Storage';
 
 const reducer = combineReducers({
   [apiService.reducerPath]: apiService.reducer,
@@ -15,9 +15,10 @@ const reducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  debugger:false
+  debugger: false,
+  whitelist: ["auth"]
 }
-const ignoredActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+const ignoredActions: any = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = configureStore({

@@ -50,9 +50,6 @@ const Register: React.FC = () => {
   }
   return (
     <>
-      <head>
-        <title>Register</title>
-      </head>
       <div className="flex items-center justify-center">
         <div className="flex flex-col w-[360px] md:w-[620px] p-6 rounded-md sm:p-10 bg-gray-50 shadow-xl">
           <div className="mb-8 text-center">
