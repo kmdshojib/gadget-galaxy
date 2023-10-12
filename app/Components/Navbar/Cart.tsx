@@ -6,7 +6,11 @@ import { BsCartFill } from "react-icons/bs";
 const Cart: React.FC = () => {
   return (
     <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-ghost btn-circle">
+      <label
+        tabIndex={0}
+        className="btn btn-ghost btn-circle lg:tooltip lg:tooltip-bottom pt-4  lg:tooltip-primary"
+        data-tip="cart"
+      >
         <div className="indicator">
           <BsCartFill size={20} />
           <span className="badge badge-sm indicator-item bg-rose-500 text-white border-rose-500">

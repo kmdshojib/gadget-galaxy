@@ -21,16 +21,20 @@ const Profile: React.FC = () => {
   console.log({ user });
   return (
     <div className="dropdown dropdown-end">
-      <label tabIndex={1} className="btn btn-ghost btn-circle avatar">
+      <label
+        tabIndex={1}
+        className="btn btn-ghost btn-circle avatar lg:tooltip lg:tooltip-bottom pt-2 pb-2 pl-1 lg:tooltip-primary"
+        data-tip="Profile"
+      >
         <div className="w-10 rounded-full">
           {!user?.imageUrl ? (
-            <RxAvatar size={40} />
+            <RxAvatar size={30} />
           ) : (
             <Image
               className="object-center"
               src={user.imageUrl}
-              height={40}
-              width={40}
+              height={20}
+              width={20}
               alt="user"
             />
           )}
@@ -38,7 +42,7 @@ const Profile: React.FC = () => {
       </label>
       <ul
         tabIndex={1}
-        className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+        className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 "
       >
         <li>
           {!token ? (
