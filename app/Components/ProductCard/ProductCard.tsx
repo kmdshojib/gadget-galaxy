@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../Common/Button";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-const ProductCard = () => {
+const ProductCard: React.FC = () => {
   const handleCart = () => {};
   return (
     <div className="card w-60 bg-base-100 shadow-xl">
