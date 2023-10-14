@@ -23,18 +23,16 @@ const Profile: React.FC = () => {
     <div className="dropdown dropdown-end">
       <label
         tabIndex={1}
-        className="btn btn-ghost btn-circle avatar lg:tooltip lg:tooltip-bottom pt-2 pb-2 pl-1 lg:tooltip-primary"
-        data-tip="Profile"
-      >
+        className="btn btn-ghost btn-circle">
         <div className="w-10 rounded-full">
           {!user?.imageUrl ? (
             <RxAvatar size={30} />
           ) : (
             <Image
-              className="object-center"
+              className="object-cover"
               src={user.imageUrl}
-              height={20}
-              width={20}
+              height={40}
+              width={40}
               alt="user"
             />
           )}

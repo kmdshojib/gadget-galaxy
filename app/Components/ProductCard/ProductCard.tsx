@@ -53,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Image
           src={imageUrl}
           alt="laptop-Image"
-          width={100}
+          width={250}
           height={100}
           className="object-contain"
         />

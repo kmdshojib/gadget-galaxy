@@ -7,7 +7,7 @@ const Categories: React.FC = () => {
     <div className="dropdown dropdown-end ">
       <label
         tabIndex={1}
-        className="m-1 btn btn-ghost btn-circle avatar lg:tooltip lg:tooltip-bottom pt-4 pl-3 lg:tooltip-primary" data-tip="Categories"
+        className="m-1 btn btn-ghost btn-circle avatar" 
       >
         <BiSolidCategory size={20} />
       </label>
