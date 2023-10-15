@@ -13,7 +13,6 @@ interface ProductCardProps {
   imageUrl: HTMLImageElement;
   price: number | null;
   id: string | null;
-  onClick: React.MouseEventHandler<HTMLHeadingElement>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -21,7 +20,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl,
   price,
   id,
-  onClick,
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
