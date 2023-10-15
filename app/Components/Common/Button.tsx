@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 interface ButtonProps {
   label: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  buttonType: "button" | "submit" | "reset";
+  buttonType?: "button" | "submit" | "reset";
   disabled?: boolean;
   small?: boolean;
   icon?: IconType;

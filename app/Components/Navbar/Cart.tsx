@@ -1,20 +1,22 @@
 "use client";
 
-import { useAppSelector } from "@/app/Hooks/useRedux";
+import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
 import React from "react";
 import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart/cartCard";
+import { setCartTotalPrice } from "@/redux/features/cartSlice";
+import Button from "../Common/Button";
 
 const Cart: React.FC = () => {
-  const cartItems = useAppSelector((state: any) => state.cart);
-  console.log(cartItems.items);
+  const { cart: cartItems } = useAppSelector((state: any) => state);
+
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
         <div className="indicator">
           <BsCartFill size={20} />
           <span className="badge badge-sm indicator-item bg-rose-500 text-white border-rose-500">
-            {cartItems.items !== null ? "0" : cartItems.items.length - 1}
+            {cartItems.items !== null ? cartItems.items.length - 1 : "0"}
           </span>
         </div>
       </label>
@@ -28,12 +30,14 @@ const Cart: React.FC = () => {
           </span>
           {cartItems.items !== null ? (
             cartItems.items?.map((item: any, index: number) => {
+              const { name, price, imageUrl, quantity } = item;
               return (
                 <CartCard
                   key={index + 1}
-                  name={item.name}
-                  price={item.price}
-                  imageUrl={item.imageUrl}
+                  name={name}
+                  price={price}
+                  imageUrl={imageUrl}
+                  quantity={quantity}
                 />
               );
             })
@@ -41,7 +45,14 @@ const Cart: React.FC = () => {
             <p>No Items in cart!</p>
           )}
           <hr />
-          <span className="text-info">Subtotal: $999</span>
+          <span className="text-rose-500 font-bold">
+            Total Price: ${cartItems.totalPrice}
+          </span>
+          <hr />
+          <div className="flex justify-between gap-1">
+            <Button outline label="Cart" />
+            <Button label="Checkout" />
+          </div>
         </div>
       </div>
     </div>

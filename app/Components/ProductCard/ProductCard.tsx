@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../Common/Button";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
-import { setCartItems, updateCartItems } from "@/redux/features/cartSlice";
+import { setCartItems, setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
 
 interface ProductCardProps {
   name: string | null;
@@ -21,6 +21,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
+
+  const calculateTotalPrice = () => {
+    if (cartItems.items !== null) {
+      let totalPrice = 0;
+
+      cartItems.items.forEach((item: any) => {
+        if (item.price !== null && item.quantity !== null) {
+          totalPrice += item.price * item.quantity;
+        }
+      });
+
+      dispatch(setCartTotalPrice(totalPrice));
+    } else {
+      dispatch(setCartTotalPrice(0));
+    }
+  };
   const handleCart = () => {
     const product = {
       id: id,
@@ -48,17 +64,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         dispatch(updateCartItems([...cartItems.items, product]));
       }
     }
+    calculateTotalPrice();
   };
 
   return (
-    <div className="card w-60 bg-base-100 shadow-2xl">
+    <div className="card w-60 h-[350px] bg-base-100 shadow-2xl">
       <figure>
         <Image
           src={imageUrl}
           alt="laptop-Image"
           width={250}
           height={100}
-          className="object-contain"
+          className="object-cover"
         />
       </figure>
       <div className="card-body">
@@ -71,7 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onClick={handleCart}
             outline
             buttonType="button"
-            label="Cart"
+            label="Add to Cart"
             icon={AiOutlineShoppingCart}
           />
         </div>

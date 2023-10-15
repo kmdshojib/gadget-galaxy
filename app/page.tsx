@@ -6,7 +6,7 @@ import Spinner from "./Components/Common/Spinner";
 import React from "react";
 
 interface IPrdoucts {
-  products:[]
+  products: [];
 }
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <main className="flex">
       <Container>
-        <div>
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
           {productData?.products?.map((product: any, index: number) => {
             const { laptopName, images, price, _id } = product;
             return (
