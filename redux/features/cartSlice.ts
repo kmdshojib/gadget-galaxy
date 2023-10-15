@@ -1,10 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ICart {
-    items: null | [] ;
+    items: [{}] | null;
 }
 const initialState: ICart = {
-    items: null || [ ]
+    items: [
+        {
+            name: null,
+            price: null,
+            imageUrl: null,
+            quantity: 0,
+        }
+    ] || null,
 }
 const cartSlice = createSlice({
     name: 'cart',

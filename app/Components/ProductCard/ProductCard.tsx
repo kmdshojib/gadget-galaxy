@@ -30,19 +30,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
       quantity: 1,
     };
 
-    const findItemIndex = cartItems.items.findIndex(
-      (item: any) => item.id === product.id
-    );
+    if (cartItems.items !== null) {
+      const findItemIndex = cartItems?.items.findIndex(
+        (item: any) => item.id === product.id
+      );
 
-    if (findItemIndex !== -1) {
-      const updatedCartItems = cartItems.items.slice(); // Create a new array by slicing the existing one
-      updatedCartItems[findItemIndex] = {
-        ...updatedCartItems[findItemIndex],
-        quantity: updatedCartItems[findItemIndex].quantity + 1,
-      };
-      dispatch(updateCartItems(updatedCartItems));
-    } else {
-      dispatch(updateCartItems([...cartItems.items, product]));
+      if (findItemIndex !== -1) {
+        const updatedCartItems = cartItems.items.slice(); // Create a new array by slicing the existing one
+        updatedCartItems[findItemIndex] = {
+          ...updatedCartItems[findItemIndex],
+          quantity:
+            (updatedCartItems[findItemIndex] as { quantity: number }).quantity +
+            1,
+        };
+        dispatch(updateCartItems(updatedCartItems));
+      } else {
+        dispatch(updateCartItems([...cartItems.items, product]));
+      }
     }
   };
 

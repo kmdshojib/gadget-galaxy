@@ -10,7 +10,7 @@ interface ICartProps {
 const CartCard: React.FC<ICartProps> = ({ imageUrl, name, price }) => {
   return (
     <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-1 text-gray-100">
-      {name !== null && price !== null ? (
+      {name !== null && price !== null && (
         <ul className="flex flex-col divide-y divide-gray-700">
           <li className="flex flex-col py-6 sm:flex-row sm:justify-between">
             <div className="flex w-full space-x-2 sm:space-x-4">
@@ -45,8 +45,6 @@ const CartCard: React.FC<ICartProps> = ({ imageUrl, name, price }) => {
             </div>
           </li>
         </ul>
-      ) : (
-        <p>No items in cart!</p>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart/cartCard";
 
 const Cart: React.FC = () => {
-  const cartItems = useAppSelector((state) => state.cart);
+  const cartItems = useAppSelector((state: any) => state.cart);
   console.log(cartItems.items);
   return (
     <div className="dropdown dropdown-end">
@@ -14,7 +14,7 @@ const Cart: React.FC = () => {
         <div className="indicator">
           <BsCartFill size={20} />
           <span className="badge badge-sm indicator-item bg-rose-500 text-white border-rose-500">
-            {cartItems.items !== null ? cartItems.items.length : 0}
+            {cartItems.items !== null ? "0" : cartItems.items.length - 1}
           </span>
         </div>
       </label>
@@ -24,9 +24,9 @@ const Cart: React.FC = () => {
       >
         <div className="card-body">
           <span className="font-bold text-lg text-rose-500">
-            Total {cartItems.items !== null && cartItems.items.length} items
+            Total {cartItems.items !== null && cartItems.items.length - 1} items
           </span>
-          {cartItems.items !== null &&
+          {cartItems.items !== null ? (
             cartItems.items?.map((item: any, index: number) => {
               return (
                 <CartCard
@@ -36,7 +36,10 @@ const Cart: React.FC = () => {
                   imageUrl={item.imageUrl}
                 />
               );
-            })}
+            })
+          ) : (
+            <p>No Items in cart!</p>
+          )}
           <hr />
           <span className="text-info">Subtotal: $999</span>
         </div>
