@@ -30,7 +30,7 @@ const Cart: React.FC = () => {
           </span>
           {cartItems.items !== null ? (
             cartItems.items?.map((item: any, index: number) => {
-              const { name, price, imageUrl, quantity } = item;
+              const { name, price, imageUrl, quantity, id } = item;
               return (
                 <CartCard
                   key={index + 1}
@@ -38,6 +38,7 @@ const Cart: React.FC = () => {
                   price={price}
                   imageUrl={imageUrl}
                   quantity={quantity}
+                  id={id}
                 />
               );
             })

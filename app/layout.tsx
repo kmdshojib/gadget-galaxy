@@ -6,7 +6,7 @@ import NavBar from "@/app/Components/Navbar/NavBar";
 import { Nunito } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

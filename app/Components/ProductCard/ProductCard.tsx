@@ -4,13 +4,16 @@ import React from "react";
 import Button from "../Common/Button";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
-import { setCartItems, setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
+import { setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ProductCardProps {
   name: string | null;
   imageUrl: HTMLImageElement;
   price: number | null;
   id: string | null;
+  onClick: React.MouseEventHandler<HTMLHeadingElement>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -18,10 +21,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl,
   price,
   id,
+  onClick,
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
-
+  const router = useRouter();
   const calculateTotalPrice = () => {
     if (cartItems.items !== null) {
       let totalPrice = 0;
@@ -52,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       );
 
       if (findItemIndex !== -1) {
-        const updatedCartItems = cartItems.items.slice(); // Create a new array by slicing the existing one
+        const updatedCartItems = cartItems.items.slice();
         updatedCartItems[findItemIndex] = {
           ...updatedCartItems[findItemIndex],
           quantity:
@@ -79,9 +83,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title hover:underline hover:cursor-pointer">
+        <Link
+          className="card-title hover:underline hover:cursor-pointer"
+          href={`/laptop/${id}`}
+        >
+          {" "}
           {name}
-        </h2>
+        </Link>
         <p className="text-rose-500 text-lg font-bold">{price}$</p>
         <div className="card-actions justify-end">
           <Button
