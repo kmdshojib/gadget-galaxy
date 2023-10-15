@@ -118,7 +118,7 @@ const AddProduct: React.FC = () => {
                 <select
                   id="laptopCategory"
                   {...register("category", { required: true })}
-                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition${
+                  className={`peer w-full p-4 pt-6 font-light bg-white border-2 transition${
                     errors.category ? "border-rose-500" : "border-neutral-300"
                   }
                   ${
@@ -127,6 +127,7 @@ const AddProduct: React.FC = () => {
                       : "focus:border-black"
                   }`}
                 >
+                  <option value="Apple">Apple</option>
                   <option value="Gaming">Gaming</option>
                   <option value="Ultra Book">Ultra Book</option>
                 </select>
