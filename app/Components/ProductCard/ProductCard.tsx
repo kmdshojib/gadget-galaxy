@@ -46,7 +46,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-  console.log(cartItems);
   return (
     <div className="card w-60 bg-base-100 shadow-2xl">
       <figure>

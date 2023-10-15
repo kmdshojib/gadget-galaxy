@@ -7,13 +7,14 @@ import CartCard from "../cart/cartCard";
 
 const Cart: React.FC = () => {
   const cartItems = useAppSelector((state) => state.cart);
+  console.log(cartItems.items);
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
         <div className="indicator">
           <BsCartFill size={20} />
           <span className="badge badge-sm indicator-item bg-rose-500 text-white border-rose-500">
-            {cartItems.items.length}
+            {cartItems.items !== null ? cartItems.items.length : 0}
           </span>
         </div>
       </label>
@@ -23,22 +24,19 @@ const Cart: React.FC = () => {
       >
         <div className="card-body">
           <span className="font-bold text-lg text-rose-500">
-            Total {cartItems.items.length} items
+            Total {cartItems.items !== null && cartItems.items.length} items
           </span>
-          {cartItems.items.length >= 0 ? (
-            cartItems.items.map((item: any) => {
+          {cartItems.items !== null &&
+            cartItems.items?.map((item: any, index: number) => {
               return (
-                <>
-                  <CartCard 
+                <CartCard
+                  key={index + 1}
                   name={item.name}
                   price={item.price}
-                  imageUrl={item.imageUrl} />
-                </>
+                  imageUrl={item.imageUrl}
+                />
               );
-            })
-          ) : (
-            <p>No items in cart!</p>
-          )}
+            })}
           <hr />
           <span className="text-info">Subtotal: $999</span>
         </div>
