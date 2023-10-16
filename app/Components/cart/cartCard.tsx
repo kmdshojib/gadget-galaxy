@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import {TiDelete} from "react-icons/ti"
-import Button from '../Common/Button';
+import { TiDelete } from "react-icons/ti";
+import Button from "../Common/Button";
 interface ICartProps {
   imageUrl: HTMLImageElement;
   name: string | null;
@@ -40,14 +40,9 @@ const CartCard: React.FC<ICartProps> = ({
                       {name}
                     </Link>
                   </div>
-                    {/* <Button
-                    small 
-                    label=""
-                    icon={TiDelete}
-                    /> */}
-                    <div className="cursor-pointer">
-                      <TiDelete className="text-rose-500" size={30}/>
-                    </div>
+                  <div className="cursor-pointer">
+                    <TiDelete className="text-rose-500" size={30} />
+                  </div>
                 </div>
                 <div className="flex w-50">
                   <p className="text-gray-800 font-bold">

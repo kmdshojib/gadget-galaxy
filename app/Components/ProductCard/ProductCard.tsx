@@ -23,7 +23,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
-  const router = useRouter();
   const calculateTotalPrice = () => {
     if (cartItems.items !== null) {
       let totalPrice = 0;
@@ -39,6 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       dispatch(setCartTotalPrice(0));
     }
   };
+
   const handleCart = () => {
     const product = {
       id: id,
@@ -65,8 +65,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       } else {
         dispatch(updateCartItems([...cartItems.items, product]));
       }
+      calculateTotalPrice()
     }
-    calculateTotalPrice();
   };
 
   return (
