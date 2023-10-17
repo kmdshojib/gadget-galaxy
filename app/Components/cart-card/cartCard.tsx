@@ -1,7 +1,10 @@
+import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
+import { calculateTotalPrice } from "@/app/functions/calcuateCartPrice";
+import { setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { TiDelete } from "react-icons/ti";
-import Button from "../Common/Button";
+
 interface ICartProps {
   imageUrl: HTMLImageElement;
   name: string | null;
@@ -16,6 +19,17 @@ const CartCard: React.FC<ICartProps> = ({
   quantity,
   id,
 }) => {
+  const { cart: cartItems } = useAppSelector((state: any) => state);
+  const dispatch = UseAppDispatch();
+
+  const handleRemoveFromCart = () => {
+    const filteredItems = cartItems.items.filter((item: any) => item.id !== id);
+    const totalPrice = calculateTotalPrice(filteredItems);
+
+    dispatch(updateCartItems(filteredItems));
+    dispatch(setCartTotalPrice(totalPrice));
+  };
+
   return (
     <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-1 text-gray-100">
       <hr />
@@ -40,7 +54,10 @@ const CartCard: React.FC<ICartProps> = ({
                       {name}
                     </Link>
                   </div>
-                  <div className="cursor-pointer">
+                  <div
+                    onClick={handleRemoveFromCart}
+                    className="cursor-pointer"
+                  >
                     <TiDelete className="text-rose-500" size={30} />
                   </div>
                 </div>

@@ -3,9 +3,9 @@
 import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
 import React from "react";
 import { BsCartFill } from "react-icons/bs";
-import CartCard from "../cart/cartCard";
-import { setCartTotalPrice } from "@/redux/features/cartSlice";
+import CartCard from "../cart-card/cartCard";
 import Button from "../Common/Button";
+import { updateCartItems } from "@/redux/features/cartSlice";
 
 const Cart: React.FC = () => {
   const { cart: cartItems } = useAppSelector((state: any) => state);

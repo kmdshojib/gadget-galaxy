@@ -7,6 +7,7 @@ import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
 import { setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { calculateTotalPrice } from "@/app/functions/calcuateCartPrice";
 
 interface ProductCardProps {
   name: string | null;
@@ -23,21 +24,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
-  const calculateTotalPrice = () => {
-    if (cartItems.items !== null) {
-      let totalPrice = 0;
+  // const calculateTotalPrice = () => {
+  //   if (cartItems.items !== null) {
+  //     let totalPrice = 0;
 
-      cartItems.items.forEach((item: any) => {
-        if (item.price !== null && item.quantity !== null) {
-          totalPrice += item.price * item.quantity;
-        }
-      });
-
-      dispatch(setCartTotalPrice(totalPrice));
-    } else {
-      dispatch(setCartTotalPrice(0));
-    }
-  };
+  //     cartItems.items.forEach((item: any) => {
+  //       if (item.price !== null && item.quantity !== null) {
+  //         totalPrice += item.price * item.quantity;
+  //       }
+  //     });
+  //     dispatch(setCartTotalPrice(totalPrice));
+  //   }
+  // };
 
   const handleCart = () => {
     const product = {
@@ -62,10 +60,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
             1,
         };
         dispatch(updateCartItems(updatedCartItems));
+
+        const total = calculateTotalPrice(updatedCartItems);
+        dispatch(setCartTotalPrice(total));
       } else {
         dispatch(updateCartItems([...cartItems.items, product]));
+        const total = calculateTotalPrice([...cartItems.items, product]);
+        dispatch(setCartTotalPrice(total));
       }
-      calculateTotalPrice()
     }
   };
 
