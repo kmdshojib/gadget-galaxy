@@ -8,6 +8,9 @@ const productService = apiService.injectEndpoints({
     getProductById: build.query<null, any>({
       query: (id: any) => ({ method: "GET", url: `laptop/getProductById/${id}` })
     }),
+    getProductByCategory: build.query<null, any>({
+      query: (category:any) => ({ method: "GET", url: `laptop/getProductByCategory/${category}` })
+    }),
     addProduct: build.mutation<any, any>({
       query: (data) => ({
         method: "POST",
@@ -18,4 +21,9 @@ const productService = apiService.injectEndpoints({
   }),
 });
 
-export const { useGetProductQuery, useAddProductMutation, useGetProductByIdQuery } = productService;
+export const {
+  useGetProductQuery,
+  useAddProductMutation,
+  useGetProductByIdQuery,
+  useGetProductByCategoryQuery
+} = productService;

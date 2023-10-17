@@ -16,7 +16,6 @@ const ProductById = () => {
   const productData: any = data;
 
   if (productData) {
-    console.log(data);
     return (
       <div>
         <Container>

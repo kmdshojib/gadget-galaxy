@@ -5,7 +5,7 @@ import ProductCard from "./Components/ProductCard/ProductCard";
 import Spinner from "./Components/Common/Spinner";
 import React from "react";
 
-interface IPrdoucts {
+export interface IPrdoucts {
   products: [];
 }
 
