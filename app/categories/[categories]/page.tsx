@@ -18,9 +18,9 @@ const ProductByCategory = () => {
   return (
     <div>
       <Container>
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
-          {productData?.products.length !== 0 ? (
-            productData?.products?.map((product: any, index: number) => {
+        {productData?.products.length !== 0 ? (
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
+            {productData?.products?.map((product: any, index: number) => {
               const { laptopName, images, price, _id } = product;
               return (
                 <div key={index + 1}>
@@ -32,11 +32,13 @@ const ProductByCategory = () => {
                   />
                 </div>
               );
-            })
-          ) : (
-            <p>No Product Found!</p>
-          )}
-        </div>
+            })}
+          </div>
+        ) : (
+          <div className="flex justify-center text-center mt-5">
+            <p className="text-rose-500">No Product Found!</p>
+          </div>
+        )}
       </Container>
     </div>
   );
