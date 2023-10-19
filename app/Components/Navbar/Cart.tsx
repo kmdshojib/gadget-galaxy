@@ -6,10 +6,11 @@ import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart-card/cartCard";
 import Button from "../Common/Button";
 import { updateCartItems } from "@/redux/features/cartSlice";
+import { useRouter } from "next/navigation";
 
 const Cart: React.FC = () => {
   const { cart: cartItems } = useAppSelector((state: any) => state);
-
+  const router = useRouter();
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -52,7 +53,7 @@ const Cart: React.FC = () => {
           <hr />
           <div className="flex justify-between gap-1">
             <Button outline label="Cart" />
-            <Button label="Checkout" />
+            <Button onClick={() => router.push("/checkout")} label="Checkout" />
           </div>
         </div>
       </div>
