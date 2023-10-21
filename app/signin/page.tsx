@@ -11,7 +11,6 @@ import { setUser } from "@/redux/features/authSlice";
 import { toast } from "react-toastify";
 import Spinner from "../Components/Common/Spinner";
 import { useRouter } from "next/navigation";
-import { useGetProductQuery } from "@/redux/Services/productService";
 
 const SignIn: React.FC = () => {
   const [loginMutation, { isLoading }] = useLoginUserMutation();

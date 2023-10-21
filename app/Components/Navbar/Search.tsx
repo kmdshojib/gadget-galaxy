@@ -1,22 +1,50 @@
 "use client";
-import React from "react";
+import { useSearchProductByNameQuery } from "@/redux/Services/productService";
+import React, { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
 
 const Search = () => {
+  const { register, handleSubmit, control } = useForm();
+  const [searchParam, setSearchParam] = useState("");
+  const { data } = useSearchProductByNameQuery(searchParam);
+  const handleSearch = (data: any) => {
+    setSearchParam(data.search);
+  };
+  const handleInputChange = (data: any) => {
+    setSearchParam(data);
+  };
+  console.log(data);
   return (
     <div className="dropdown dropdown-bottom">
-      <div className="form-control">
+      <form onSubmit={handleSubmit(handleSearch)} className="form-control">
         <label tabIndex={1} className="input-group input-group-md">
-          <input
-            type="text"
-            placeholder="Search"
-            className=" input input-bordered input-md"
+          <Controller
+            control={control}
+            name="search"
+            render={({ field: { onChange } }) => (
+              <input
+                type="text"
+                placeholder="Search"
+                className=" input input-bordered input-md"
+                {...register("search")}
+                onChange={(e) => {
+                  const newData = e.target.value;
+                  onChange(e);
+                  handleInputChange(newData);
+                }}
+              />
+            )}
           />
-          <span>
+          <button
+            type="submit"
+            title="search"
+            className="btn btn-active btn-neutral"
+          >
             <AiOutlineSearch />
-          </span>
+          </button>
         </label>
-      </div>
+      </form>
 
       <ul
         tabIndex={1}
