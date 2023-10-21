@@ -8,7 +8,6 @@ const Categories: React.FC = () => {
       <label tabIndex={1} className="m-1 btn btn-ghost btn-circle avatar">
         <BiSolidCategory size={20} />
       </label>
-      <div className="tooltip tooltip-bottom"></div>
       <ul
         tabIndex={1}
         className="mt-5 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"

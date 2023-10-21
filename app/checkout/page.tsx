@@ -4,32 +4,19 @@ import { Elements, CardElement, PaymentElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 
+const stripe = loadStripe(`${process.env.stripe_key}`);
 const Checkout = () => {
-  const stripe = loadStripe(`${process.env.stripe_key}`);
-
+  const options = {
+    clientSecret: `{{${process.env.stripe_secretkey}}}`,
+  };
+  const clientSecret ={clientSecret:`{{${process.env.stripe_secretkey}}}`}
   return (
     <div>
-      <Elements stripe={stripe}>
-        <form>
+      <Elements stripe={stripe} options={clientSecret}>
+      <form>
           <div>
             {/* <PaymentElement /> */}
-            <CardElement
-              className="card"
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#424770",
-                    "::placeholder": {
-                      color: "#aab7c4",
-                    },
-                  },
-                  invalid: {
-                    color: "#9e2146",
-                  },
-                },
-              }}
-            />
+ 
             <button type="button" className="pay-button">
               Checkout
             </button>
