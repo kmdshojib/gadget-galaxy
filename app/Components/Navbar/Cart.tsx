@@ -5,7 +5,6 @@ import React from "react";
 import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart-card/cartCard";
 import Button from "../Common/Button";
-import { updateCartItems } from "@/redux/features/cartSlice";
 import { useRouter } from "next/navigation";
 
 const Cart: React.FC = () => {
