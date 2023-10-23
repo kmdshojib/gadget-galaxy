@@ -3,6 +3,7 @@ import {
   PaymentElement,
   useStripe,
   useElements,
+  AddressElement,
 } from "@stripe/react-stripe-js";
 
 export default function CheckoutForm({ clientSecret }: any) {
@@ -27,7 +28,7 @@ export default function CheckoutForm({ clientSecret }: any) {
     // }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log(clientSecret,paymentIntent);
+      console.log(clientSecret, paymentIntent);
       setMessage(
         paymentIntent?.status === "succeeded"
           ? "Your payment succeeded"
@@ -61,19 +62,23 @@ export default function CheckoutForm({ clientSecret }: any) {
 
     setIsLoading(false);
   };
-
+  // const options = {
+  //   mode: {mode:"shipping"},
+  // };
   return (
-    <form onSubmit={handleSubmit}>
-      <p className="text-black mb-4">Complete your payment here!</p>
-      <PaymentElement />
-      <button
-        type="submit"
-        className="bg-black rounded-xl text-white p-2 mt-6 mb-2"
-        disabled={isLoading || !stripe || !elements}
-      >
-        {isLoading ? "Loading..." : "Pay now"}
-      </button>
-      {message && <div>{message}</div>}
-    </form>
+
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <p className="text-black mb-4">Complete your payment here!</p>
+        {/* <AddressElement options={options} /> */}
+        <PaymentElement />
+        <button
+          type="submit"
+          className="bg-black rounded-xl text-white p-2 mt-6 mb-2"
+          disabled={isLoading || !stripe || !elements}
+        >
+          {isLoading ? "Loading..." : "Pay now"}
+        </button>
+        {message && <div>{message}</div>}
+      </form>
   );
 }

@@ -10,6 +10,9 @@ import { useRouter } from "next/navigation";
 const Cart: React.FC = () => {
   const { cart: cartItems } = useAppSelector((state: any) => state);
   const router = useRouter();
+  const handleCheckOut = () => {
+    router.push("/checkout");
+  };
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -52,7 +55,7 @@ const Cart: React.FC = () => {
           <hr />
           <div className="flex justify-between gap-1">
             <Button outline label="Cart" />
-            <Button onClick={() => router.push("/checkout")} label="Checkout" />
+            <Button onClick={handleCheckOut} label="Checkout" />
           </div>
         </div>
       </div>
