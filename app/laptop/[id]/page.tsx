@@ -21,7 +21,7 @@ const ProductById = () => {
         <Container>
           <div className="flex flex-col">
             <div className="mt-1 flex justify-center ">
-              <Carousel
+              {/* <Carousel
                 className="w-6/6 h-3/6"
                 showArrows={true}
                 autoPlay={true}
@@ -42,7 +42,7 @@ const ProductById = () => {
                     </div>
                   );
                 })}
-              </Carousel>
+              </Carousel> */}
             </div>
             <div className="badge badge-outline mt-2 cursor-pointer ">{productData?.product?.category}</div>
             <div className="mt-2 font-extrabold text-xl text-gray-800">

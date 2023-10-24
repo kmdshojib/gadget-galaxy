@@ -14,7 +14,7 @@ const Checkout: React.FC = () => {
   const [clientSecret, setClientSecret] = useState("");
   useEffect(() => {
     console.log("Setting client secret");
-
+    
     fetch("http://localhost:5000/api/v1/laptop/payment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -45,15 +45,18 @@ const Checkout: React.FC = () => {
               {cart.items && cart.items.length > 0 ? (
                 cart.items
                   .filter(
-                    (item:any) => item && item.name !== null && item.price !== null
+                    (item: any) =>
+                      item && item.name !== null && item.price !== null
                   )
                   .map((item: any) => {
                     const { name, id, quantity, price }: any = item;
                     return (
                       <div key={id} className="mb-3">
-                        <p className="font-bold text-lg text-gray-800">{name}</p>
-                        <p className="text-gray-800 font-bold">
-                          {price} × {quantity}
+                        <p className="font-bold text-base text-gray-800">
+                          {name}
+                        </p>
+                        <p className="text-neutral-700 font-semibolds">
+                          ${price} × {quantity}
                         </p>
                       </div>
                     );
@@ -61,6 +64,8 @@ const Checkout: React.FC = () => {
               ) : (
                 <></>
               )}
+              <div className="border-solid border-2 border-gray-700 mb-3"></div>
+              <p className="text-base font-bold text-rose-500">Total Price: ${cart.totalPrice}</p>
             </div>
             <div className="mr-3">
               <Elements options={options} stripe={stripe}>

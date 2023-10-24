@@ -28,7 +28,6 @@ export default function CheckoutForm({ clientSecret }: any) {
     // }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log(clientSecret, paymentIntent);
       setMessage(
         paymentIntent?.status === "succeeded"
           ? "Your payment succeeded"
@@ -49,6 +48,7 @@ export default function CheckoutForm({ clientSecret }: any) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
+        payment_method: "card",
         return_url: "/",
       },
     });
@@ -66,19 +66,18 @@ export default function CheckoutForm({ clientSecret }: any) {
   //   mode: {mode:"shipping"},
   // };
   return (
-
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <p className="text-black mb-4">Complete your payment here!</p>
-        {/* <AddressElement options={options} /> */}
-        <PaymentElement />
-        <button
-          type="submit"
-          className="bg-black rounded-xl text-white p-2 mt-6 mb-2"
-          disabled={isLoading || !stripe || !elements}
-        >
-          {isLoading ? "Loading..." : "Pay now"}
-        </button>
-        {message && <div>{message}</div>}
-      </form>
+    <form onSubmit={handleSubmit} className="flex flex-col">
+      <p className="text-black mb-4">Complete your payment here!</p>
+      {/* <AddressElement options={options} /> */}
+      <PaymentElement />
+      <button
+        type="submit"
+        className="bg-black rounded-xl text-white p-2 mt-6 mb-2"
+        disabled={isLoading || !stripe || !elements}
+      >
+        {isLoading ? "Loading..." : "Pay now"}
+      </button>
+      {/* {message && <div>{message}</div>} */}
+    </form>
   );
 }

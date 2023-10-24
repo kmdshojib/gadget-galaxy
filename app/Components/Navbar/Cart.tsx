@@ -6,12 +6,17 @@ import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart-card/cartCard";
 import Button from "../Common/Button";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Cart: React.FC = () => {
-  const { cart: cartItems } = useAppSelector((state: any) => state);
+  const { cart: cartItems, auth } = useAppSelector((state: any) => state);
   const router = useRouter();
   const handleCheckOut = () => {
-    router.push("/checkout");
+    if (auth.token && auth.user && cartItems.items.length > 1) {
+      router.push("/checkout");
+    } else {
+      toast.error("Please add Product to cart to continue checkout!");
+    }
   };
   return (
     <div className="dropdown dropdown-end">
@@ -55,7 +60,10 @@ const Cart: React.FC = () => {
           <hr />
           <div className="flex justify-between gap-1">
             <Button outline label="Cart" />
-            <Button onClick={handleCheckOut} label="Checkout" />
+            <Button
+              onClick={handleCheckOut}
+              label="Checkout"
+            />
           </div>
         </div>
       </div>
