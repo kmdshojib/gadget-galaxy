@@ -4,7 +4,10 @@ import {
   useStripe,
   useElements,
   AddressElement,
+  CardNumberElement,
+  CardElement,
 } from "@stripe/react-stripe-js";
+import { toast } from "react-toastify";
 
 export default function CheckoutForm({ clientSecret }: any) {
   const stripe = useStripe();
@@ -18,21 +21,11 @@ export default function CheckoutForm({ clientSecret }: any) {
       return;
     }
 
-    // const clientSecret = new URLSearchParams(window.location.search).get(
-    //   "payment_intent_client_secret"
-    // );
-    // console.log(clientSecret);
-    // if (!clientSecret) {
-    //   setMessage("Client secret not found");
-    //   return;
-    // }
-
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      setMessage(
-        paymentIntent?.status === "succeeded"
-          ? "Your payment succeeded"
-          : "Unexpected error occurred"
-      );
+      console.log(paymentIntent?.status);
+      if (paymentIntent?.status === "succeeded") {
+        toast.success("Your payment succeeded");
+      }
     });
   }, [stripe, clientSecret]);
 
@@ -44,31 +37,29 @@ export default function CheckoutForm({ clientSecret }: any) {
     }
 
     setIsLoading(true);
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         payment_method: "card",
-        return_url: "/",
+        return_url: "http://localhost:3000/",
       },
     });
-
+    toast.success("Your payment succeeded");
     if (
       error &&
       (error.type === "card_error" || error.type === "validation_error")
     ) {
       setMessage("Something went wrong!");
+    } else {
+      toast.success("Your payment succeeded");
     }
 
     setIsLoading(false);
   };
-  // const options = {
-  //   mode: {mode:"shipping"},
-  // };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <p className="text-black mb-4">Complete your payment here!</p>
-      {/* <AddressElement options={options} /> */}
+      {/* <AddressElement options={{ mode: "shipping" }} /> */}
       <PaymentElement />
       <button
         type="submit"
@@ -77,7 +68,6 @@ export default function CheckoutForm({ clientSecret }: any) {
       >
         {isLoading ? "Loading..." : "Pay now"}
       </button>
-      {/* {message && <div>{message}</div>} */}
     </form>
   );
 }

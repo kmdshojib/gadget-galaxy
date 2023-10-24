@@ -2,7 +2,6 @@
 import { Elements, CardElement } from "@stripe/react-stripe-js";
 
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CheckoutForm from "../Components/checkoutform/CheckoutForm";
 import { useAppSelector } from "../Hooks/useRedux";
@@ -10,32 +9,45 @@ import Container from "../Components/Common/Container";
 
 const stripe = loadStripe(`${process.env.stripe_key}`);
 const Checkout: React.FC = () => {
-  const cart = useAppSelector((state) => state.cart);
   const [clientSecret, setClientSecret] = useState("");
-  useEffect(() => {
-    console.log("Setting client secret");
+  const { cart, auth } = useAppSelector((state) => state);
+  // data for order
+  const filteredProduct = (cart.items ?? [])
+    .filter((item: any) => item.id !== null && item.quantity !== null)
+    .map((item: any) => ({ id: item.id, quantity: item.quantity }));
     
-    fetch("http://localhost:5000/api/v1/laptop/payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: 100 }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        console.log("Setting client secret");
-        return res.json();
-      })
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  useEffect(() => {
+   
+    if (!clientSecret) {
+      const data = {
+        customerEmail: auth.user?.email,
+        price: cart.totalPrice,
+        product: filteredProduct,
+      };
+
+      if (auth.user?.email && cart.totalPrice && filteredProduct.length > 0) {
+        fetch("http://localhost:5000/api/v1/laptop/payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return res.json();
+          })
+          .then((data) => setClientSecret(data.clientSecret))
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+  }, [auth.user?.email, cart.totalPrice, filteredProduct, clientSecret]);
+
   const options = {
     clientSecret,
   };
-  console.log(cart);
   return (
     <Container>
       <div>
@@ -65,7 +77,9 @@ const Checkout: React.FC = () => {
                 <></>
               )}
               <div className="border-solid border-2 border-gray-700 mb-3"></div>
-              <p className="text-base font-bold text-rose-500">Total Price: ${cart.totalPrice}</p>
+              <p className="text-base font-bold text-rose-500">
+                Total Price: ${cart.totalPrice}
+              </p>
             </div>
             <div className="mr-3">
               <Elements options={options} stripe={stripe}>
