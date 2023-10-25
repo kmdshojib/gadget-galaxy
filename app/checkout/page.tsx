@@ -15,21 +15,14 @@ const Checkout: React.FC = () => {
   const filteredProduct = (cart.items ?? [])
     .filter((item: any) => item.id !== null && item.quantity !== null)
     .map((item: any) => ({ id: item.id, quantity: item.quantity }));
-    
-  useEffect(() => {
-   
-    if (!clientSecret) {
-      const data = {
-        customerEmail: auth.user?.email,
-        price: cart.totalPrice,
-        product: filteredProduct,
-      };
 
+  useEffect(() => {
+    if (!clientSecret) {
       if (auth.user?.email && cart.totalPrice && filteredProduct.length > 0) {
         fetch("http://localhost:5000/api/v1/laptop/payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify({ price: cart.totalPrice }),
         })
           .then((res) => {
             if (!res.ok) {

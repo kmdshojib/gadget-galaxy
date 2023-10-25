@@ -4,17 +4,28 @@ import {
   useStripe,
   useElements,
   AddressElement,
-  CardNumberElement,
-  CardElement,
 } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
+import { useAddOrdersMutation } from "@/redux/Services/productService";
+import { useAppSelector } from "@/app/Hooks/useRedux";
 
 export default function CheckoutForm({ clientSecret }: any) {
   const stripe = useStripe();
   const elements = useElements();
-
+  const [addOrders, { isLoading: ordersLoading }] = useAddOrdersMutation();
+  const { cart, auth } = useAppSelector((state) => state);
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const filteredProduct = (cart.items ?? [])
+    .filter((item: any) => item.id !== null && item.quantity !== null)
+    .map((item: any) => ({ id: item.id, quantity: item.quantity }));
+
+  const data = {
+    customerEmail: auth.user?.email,
+    price: cart.totalPrice,
+    product: filteredProduct,
+  };
 
   useEffect(() => {
     if (!stripe) {
@@ -35,26 +46,28 @@ export default function CheckoutForm({ clientSecret }: any) {
     if (!stripe || !elements) {
       return;
     }
-
     setIsLoading(true);
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        payment_method: "card",
-        return_url: "http://localhost:3000/",
-      },
-    });
-    toast.success("Your payment succeeded");
-    if (
-      error &&
-      (error.type === "card_error" || error.type === "validation_error")
-    ) {
-      setMessage("Something went wrong!");
-    } else {
-      toast.success("Your payment succeeded");
-    }
+    const result: any = await addOrders(data);
+    console.log(result);
+    if (result) {
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          payment_method: "card",
+          return_url: "http://localhost:3000/",
+        },
+      });
+      if (
+        error &&
+        (error.type === "card_error" || error.type === "validation_error")
+      ) {
+        setMessage("Something went wrong!");
+      } else {
+        toast.success("Your payment succeeded");
+      }
 
-    setIsLoading(false);
+      setIsLoading(false);
+    }
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">

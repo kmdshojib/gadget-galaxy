@@ -24,18 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const dispatch = UseAppDispatch();
   const cartItems = useAppSelector((state) => state.cart);
-  // const calculateTotalPrice = () => {
-  //   if (cartItems.items !== null) {
-  //     let totalPrice = 0;
 
-  //     cartItems.items.forEach((item: any) => {
-  //       if (item.price !== null && item.quantity !== null) {
-  //         totalPrice += item.price * item.quantity;
-  //       }
-  //     });
-  //     dispatch(setCartTotalPrice(totalPrice));
-  //   }
-  // };
 
   const handleCart = () => {
     const product = {

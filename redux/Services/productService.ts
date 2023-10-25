@@ -20,6 +20,9 @@ const productService = apiService.injectEndpoints({
         url: "laptop/add",
         data: data
       }),
+    }),
+    addOrders: build.mutation<any, any>({
+      query: (data) => ({ method: "POST", url: "laptop/postorders", data: data }),
     })
   }),
 });
@@ -29,5 +32,6 @@ export const {
   useAddProductMutation,
   useGetProductByIdQuery,
   useGetProductByCategoryQuery,
-  useSearchProductByNameQuery
+  useSearchProductByNameQuery,
+  useAddOrdersMutation
 } = productService;
