@@ -60,10 +60,7 @@ const Cart: React.FC = () => {
           <hr />
           <div className="flex justify-between gap-1">
             <Button outline label="Cart" />
-            <Button
-              onClick={handleCheckOut}
-              label="Checkout"
-            />
+            <Button onClick={handleCheckOut} label="Checkout" />
           </div>
         </div>
       </div>

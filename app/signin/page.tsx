@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const SignIn: React.FC = () => {
   const [loginMutation, { isLoading }] = useLoginUserMutation();
- 
+
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -38,74 +38,78 @@ const SignIn: React.FC = () => {
       toast.error("Login Failed check your email or password!");
     }
   };
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   return (
     <div className="flex items-center justify-center">
-      <div className="flex flex-col w-[360px] md:w-[450px] p-6 rounded-md sm:p-10 bg-gray-50 shadow-xl">
-        <div className="mb-8 text-center">
-          <h1 className="my-3 text-4xl font-bold">Sign in</h1>
-          <p className="text-sm font-light text-neutral-500">
-            Sign in to access your account
-          </p>
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          action=""
-          className="space-y-12"
-        >
-          <div className="space-y-4">
-            <div>
-              <Input
-                id="email"
-                label="Email"
-                type="email"
-                register={register}
-                errors={errors}
-                required
-              />
-            </div>
-            <div>
-              <div className="flex justify-end mb-2">
-                <a
-                  rel="noopener noreferrer"
-                  href="#"
-                  className="text-xs hover:underline text-gray-600"
-                  data-abc="true"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <Input
-                id="password"
-                label="Password"
-                type="password"
-                register={register}
-                errors={errors}
-                required
-              />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div>
-              <Button label="Sign In" buttonType="submit" />
-            </div>
-            <p className="px-6 text-sm text-center text-gray-600">
-              Don&apos;t have an account yet?
-              <Link
-                rel="noopener noreferrer"
-                href="/register"
-                className="hover:underline font-light text-neutral-500"
-                data-abc="true"
-              >
-                Sign up
-              </Link>
-              .
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-col w-[360px] md:w-[450px] p-6 rounded-md sm:p-10 bg-gray-50 shadow-xl">
+          <div className="mb-8 text-center">
+            <h1 className="my-3 text-4xl font-bold">Sign in</h1>
+            <p className="text-sm font-light text-neutral-500">
+              Sign in to access your account
             </p>
           </div>
-        </form>
-      </div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            action=""
+            className="space-y-12"
+          >
+            <div className="space-y-4">
+              <div>
+                <Input
+                  id="email"
+                  label="Email"
+                  type="email"
+                  register={register}
+                  errors={errors}
+                  required
+                />
+              </div>
+              <div>
+                <div className="flex justify-end mb-2">
+                  <a
+                    rel="noopener noreferrer"
+                    href="#"
+                    className="text-xs hover:underline text-gray-600"
+                    data-abc="true"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+                <Input
+                  id="password"
+                  label="Password"
+                  type="password"
+                  register={register}
+                  errors={errors}
+                  required
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div>
+                <Button label="Sign In" buttonType="submit" />
+              </div>
+              <p className="px-6 text-sm text-center text-gray-600">
+                Don&apos;t have an account yet?
+                <Link
+                  rel="noopener noreferrer"
+                  href="/register"
+                  className="hover:underline font-light text-neutral-500"
+                  data-abc="true"
+                >
+                  Sign up
+                </Link>
+                .
+              </p>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

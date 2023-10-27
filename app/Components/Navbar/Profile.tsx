@@ -11,6 +11,7 @@ import {
   BiSolidUserPlus,
   BiUser,
 } from "react-icons/bi";
+import { updateCartItems } from "@/redux/features/cartSlice";
 
 const Profile: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth);
@@ -21,9 +22,7 @@ const Profile: React.FC = () => {
   console.log({ user });
   return (
     <div className="dropdown dropdown-end">
-      <label
-        tabIndex={1}
-        className="btn btn-ghost btn-circle">
+      <label tabIndex={1} className="btn btn-ghost btn-circle">
         <div className="w-10 rounded-full">
           {!user?.imageUrl ? (
             <RxAvatar size={30} />

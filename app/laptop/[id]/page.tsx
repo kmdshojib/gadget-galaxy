@@ -4,8 +4,8 @@ import Spinner from "@/app/Components/Common/Spinner";
 import { useGetProductByIdQuery } from "@/redux/Services/productService";
 import { useParams } from "next/navigation";
 import React from "react";
-import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProductById = () => {
   const { id } = useParams();
@@ -21,30 +21,41 @@ const ProductById = () => {
         <Container>
           <div className="flex flex-col">
             <div className="mt-1 flex justify-center ">
-              {/* <Carousel
-                className="w-6/6 h-3/6"
-                showArrows={true}
-                autoPlay={true}
-                dynamicHeight={false}
-                infiniteLoop={true}
-                showThumbs={false}
-              >
+              <div className="carousel w-full mb-3 h-[350px]">
                 {productData.product.images.map((image: any, index: number) => {
+                  index = index + 1;
                   return (
-                    <div key={index++}>
+                    <div
+                      id={`slide${index++}`}
+                      className="carousel-item relative w-full"
+                      key={index++}
+                    >
                       <Image
-                        className="object-cover"
+                        className="w-full object-cover"
                         src={image}
                         alt="causolImage"
                         width={500}
-                        height={350}
+                        height={250}
                       />
+                      <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <Link href="#slide1" className="btn btn-circle">
+                          ❮
+                        </Link>
+                        <Link href="#slide2" className="btn btn-circle">
+                          ❯
+                        </Link>
+                      </div>
                     </div>
                   );
                 })}
-              </Carousel> */}
+              </div>
             </div>
-            <div className="badge badge-outline mt-2 cursor-pointer ">{productData?.product?.category}</div>
+            <Link
+              href={`/categories/${productData?.product?.category}`}
+              className="badge badge-outline mt-2 cursor-pointer hover:bg-slate-900 hover:text-neutral-200"
+            >
+              {productData?.product?.category}
+            </Link>
             <div className="mt-2 font-extrabold text-xl text-gray-800">
               {productData?.product?.laptopName}
             </div>
