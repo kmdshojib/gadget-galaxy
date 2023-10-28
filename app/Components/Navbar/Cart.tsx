@@ -34,7 +34,9 @@ const Cart: React.FC = () => {
       >
         <div className="card-body">
           <span className="font-bold text-lg text-rose-500">
-            Total {cartItems.items !== null && cartItems.items.length - 1} items
+            {cartItems.items !== null
+              ? `Total ${cartItems.items.length - 1} items`
+              : "No items in cart!"}
           </span>
           {cartItems.items !== null ? (
             cartItems.items?.map((item: any, index: number) => {

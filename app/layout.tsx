@@ -6,6 +6,7 @@ import NavBar from "@/app/Components/Navbar/NavBar";
 import { Nunito } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Components/Footer/Footer";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,6 +27,9 @@ export default function RootLayout({
             <NavBar />
           </>
           <div className="pb-20 pt-28">{children}</div>
+          <>
+            <Footer />
+          </>
         </Providers>
         <ToastContainer />
       </body>
