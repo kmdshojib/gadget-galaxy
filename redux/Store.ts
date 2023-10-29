@@ -11,7 +11,8 @@ import { rootReducer } from "./rootReducer";
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage: storage,
+
 }
 const ignoredActions: any = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 

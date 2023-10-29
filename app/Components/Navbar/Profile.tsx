@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RxAvatar } from "react-icons/rx";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { CgBorderRight } from "react-icons/cg";
 import {
   BiLogOutCircle,
   BiSolidLogInCircle,
@@ -68,6 +69,10 @@ const Profile: React.FC = () => {
                   Add Product
                 </Link>
               )}
+              <Link href="/myorders" className="hover:text-rose-500 transition">
+                <CgBorderRight size={18} />
+                Orders
+              </Link>
               <p
                 onClick={handleLogout}
                 className="hover:text-rose-500 transition"
