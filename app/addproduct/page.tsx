@@ -133,7 +133,7 @@ const AddProduct: React.FC = () => {
                 </select>
                 <label
                   htmlFor="userType"
-                  className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-4`}
+                  className={`absolute text-md duration-150 transform -translate-y-3 top-5 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-4`}
                 >
                   Choose Category:
                 </label>

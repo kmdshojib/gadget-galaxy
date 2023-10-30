@@ -68,7 +68,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt="laptop-Image"
           width={250}
           height={100}
-          className="object-cover"
+          layout="resposive"
+          loading="lazy"
+          className="object-contain"
         />
       </figure>
       <div className="card-body">

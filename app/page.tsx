@@ -4,6 +4,7 @@ import Container from "./Components/Common/Container";
 import ProductCard from "./Components/ProductCard/ProductCard";
 import Spinner from "./Components/Common/Spinner";
 import React from "react";
+import Hero from "./Components/Hero";
 
 export interface IPrdoucts {
   products: [];
@@ -12,13 +13,14 @@ export interface IPrdoucts {
 const Home = () => {
   const { data, isLoading } = useGetProductQuery(null);
   const productData: IPrdoucts | null | any = data;
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-  // console.log(productData?.product?.length >= 1);
+  if (isLoading) {
+    return <Spinner />;
+  }
+  console.log(productData?.product?.length >= 1);
   return (
     <main className="flex">
       <Container>
+        <Hero />
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
           {productData?.product?.length !== 0 ? (
             isLoading ? <Spinner /> : productData?.products?.map((product: any, index: number) => {
