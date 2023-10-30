@@ -17,7 +17,7 @@ const NavBar = () => {
               <div className="hidden sm:block">
                 {" "}
                 {/* Hide Logo on small screens */}
-                <Search />
+                {/* <Search /> */}
               </div>
               <div className="navbar-end flex items-center gap-3">
                 <div className="hidden sm:block">
