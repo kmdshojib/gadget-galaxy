@@ -57,8 +57,8 @@ const Home = () => {
                 key={index++}
                 className={
                   categoryActive === item
-                    ? "badge bg-rose-500 text-white  text-bold cursor-pointer mr-3 h-8 w-28"
-                    : "badge border-solid border-2 border-gray-950 text-bold cursor-pointer mr-3 h-8 w-28 hover:bg-rose-500 hover:text-white hover:border-none"
+                    ? "badge bg-rose-500 text-white text-bold cursor-pointer mr-3 h-8 w-16 text-xs md:w-28 md:text-lg"
+                    : "badge border-solid border-2 border-gray-950 text-bold cursor-pointer mr-3 h-8 w-16 text-xs md:w-28 md:text-lg hover:bg-rose-500 hover:text-white hover:border-none"
                 }
               >
                 {item}

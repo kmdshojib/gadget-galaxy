@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RxAvatar } from "react-icons/rx";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { CgBorderRight } from "react-icons/cg";
 import {
   BiLogOutCircle,
@@ -61,13 +62,22 @@ const Profile: React.FC = () => {
                 {user?.name}
               </p>
               {user?.role === "seller" && (
-                <Link
-                  href="/addproduct"
-                  className="hover:text-rose-500 transition"
-                >
-                  <IoAddCircleOutline size={18} />
-                  Add Product
-                </Link>
+                <>
+                  <Link
+                    href="/addproduct"
+                    className="hover:text-rose-500 transition"
+                  >
+                    <IoAddCircleOutline size={18} />
+                    Add Product
+                  </Link>
+                  <Link
+                    href="/seller/dashboard"
+                    className="hover:text-rose-500 transition"
+                  >
+                    <MdOutlineAdminPanelSettings size={18} />
+                    SellerDashboard
+                  </Link>
+                </>
               )}
               <Link href="/myorders" className="hover:text-rose-500 transition">
                 <CgBorderRight size={18} />

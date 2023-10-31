@@ -26,6 +26,9 @@ const productService = apiService.injectEndpoints({
     }),
     getOrderList: build.query<any, any>({
       query: (email: any) => ({ method: "GET", url: `laptop/orders/${email}` })
+    }),
+    getSellerProducts: build.query<null, any>({
+      query: (email: any) => ({ method: "GET", url: `laptop/seller_productsF/${email}` })
     })
   }),
 });
@@ -38,4 +41,5 @@ export const {
   useSearchProductByNameQuery,
   useAddOrdersMutation,
   useGetOrderListQuery,
+  useGetSellerProductsQuery
 } = productService;
