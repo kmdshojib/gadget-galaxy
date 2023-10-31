@@ -127,9 +127,9 @@ const AddProduct: React.FC = () => {
                       : "focus:border-black"
                   }`}
                 >
-                  <option value="Apple">Apple</option>
-                  <option value="Gaming">Gaming</option>
-                  <option value="Ultra Book">Ultra Book</option>
+                  <option value="apple">Apple</option>
+                  <option value="gaming">Gaming</option>
+                  <option value="ultrabook">Ultra Book</option>
                 </select>
                 <label
                   htmlFor="userType"

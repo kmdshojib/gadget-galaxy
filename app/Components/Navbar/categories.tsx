@@ -14,7 +14,7 @@ const Categories: React.FC = () => {
       >
         <li>
           <Link
-            href="/categories/Gaming"
+            href="/categories/gaming"
             className="hover:text-rose-500 transition"
           >
             Gaming
@@ -22,7 +22,7 @@ const Categories: React.FC = () => {
         </li>
         <li>
           <Link
-            href="/categories/UltraBook"
+            href="/categories/ultrabook"
             className="hover:text-rose-500 transition"
           >
             Ultra Book
@@ -30,7 +30,7 @@ const Categories: React.FC = () => {
         </li>
         <li>
           <Link
-            href="/categories/Apple"
+            href="/categories/apple"
             className="hover:text-rose-500 transition"
           >
             Apple

@@ -5,6 +5,7 @@ import ProductCard from "./Components/ProductCard/ProductCard";
 import Spinner from "./Components/Common/Spinner";
 import React, { useEffect, useState } from "react";
 import Hero from "./Components/Hero";
+import FAQ from "./Components/FAQ";
 
 export interface IPrdoucts {
   products: [];
@@ -27,13 +28,11 @@ const Home = () => {
     setCategoryActive(item);
     const categoryName = item.toLowerCase();
     if (categoryName === "all") {
-      // If "All" is selected, show all products
       setFilteredData(productData.products);
     } else if (productData?.products) {
-      // Filter based on the selected category
       const productFilteredData = productData.products.filter(
         (product: any) => {
-          const productCategory = product.category.toLowerCase(); // Ensure the correct property access
+          const productCategory = product.category.toLowerCase();
           return productCategory === categoryName;
         }
       );
@@ -67,7 +66,7 @@ const Home = () => {
             );
           })}
         </div>
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
           {productData?.product?.length !== 0 ? (
             isLoading ? (
               <Spinner />
@@ -90,6 +89,7 @@ const Home = () => {
             <p>No Products found</p>
           )}
         </div>
+        <FAQ />
       </Container>
     </main>
   );

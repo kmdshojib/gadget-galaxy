@@ -1,10 +1,10 @@
 "use client";
+import React, { useState } from "react";
 import { IPrdoucts } from "@/app/page";
 import { useSearchProductByNameQuery } from "@/redux/Services/productService";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
 
