@@ -34,8 +34,9 @@ const ProductById = () => {
                         className="w-full object-cover"
                         src={image}
                         alt="causolImage"
-                        width={500}
-                        height={250}
+                        sizes="100vh"
+                        height="0"
+                        width="0"
                       />
                       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                         <Link href="#slide1" className="btn btn-circle">

@@ -30,10 +30,11 @@ const Profile: React.FC = () => {
             <RxAvatar size={30} />
           ) : (
             <Image
-              className="object-cover"
+              className="object-cover rounded-full"
               src={user.imageUrl}
-              height={40}
-              width={40}
+              sizes="100vh"
+              height="100"
+              width="100"
               alt="user"
             />
           )}

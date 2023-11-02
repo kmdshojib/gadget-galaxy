@@ -8,8 +8,11 @@ const productService = apiService.injectEndpoints({
     getProductById: build.query<null, any>({
       query: (id: any) => ({ method: "GET", url: `laptop/getProductById/${id}` })
     }),
-    getProductByCategory: build.query<null, any>({
-      query: (category: any) => ({ method: "GET", url: `laptop/getProductByCategory/${category}` })
+    getProductByCategory: build.query<any, any>({
+      query: ({ category, page, pageSize })  => ({
+        method: "GET",
+        url: `laptop/getProductByCategory/${category}?page=${page}&pageSize=${pageSize}`,
+      }),
     }),
     searchProductByName: build.query<null, any>({
       query: (name: any) => ({ method: "GET", url: `laptop/search?q=${name}` })
@@ -28,7 +31,12 @@ const productService = apiService.injectEndpoints({
       query: (email: any) => ({ method: "GET", url: `laptop/orders/${email}` })
     }),
     getSellerProducts: build.query<null, any>({
-      query: (email: any) => ({ method: "GET", url: `laptop/seller_productsF/${email}` })
+      query: (email: any) => ({ method: "GET", url: `laptop/seller_products/${email}` })
+    }),
+    deleteProducts: build.mutation<any, any>({
+      query: (id: any) => ({
+        method: "DELETE", url: `laptop/delete/${id}`
+      })
     })
   }),
 });
@@ -41,5 +49,6 @@ export const {
   useSearchProductByNameQuery,
   useAddOrdersMutation,
   useGetOrderListQuery,
-  useGetSellerProductsQuery
+  useGetSellerProductsQuery,
+  useDeleteProductsMutation
 } = productService;

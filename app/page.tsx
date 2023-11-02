@@ -6,36 +6,38 @@ import Spinner from "./Components/Common/Spinner";
 import React, { useEffect, useState } from "react";
 import Hero from "./Components/Hero";
 import FAQ from "./Components/FAQ";
+import Link from "next/link";
 
 export interface IPrdoucts {
   products: [];
 }
 
 const Home = () => {
-  const { data, isLoading } = useGetProductQuery(null);
+  const { data, isLoading, refetch } = useGetProductQuery(null);
   const productData: IPrdoucts | null | any = data;
   const [filteredData, setFilteredData] = useState([]);
   const [categoryActive, setCategoryActive] = useState("All");
   const categories = ["All", "Gaming", "Apple", "UltraBook"];
 
   useEffect(() => {
+    refetch();
     if (productData?.products) {
-      setFilteredData(productData.products);
+      setFilteredData(productData.products.slice(0, 4));
     }
-  }, [productData]);
+  }, [productData, refetch]);
 
   const handleCategory = (item: string) => {
     setCategoryActive(item);
     const categoryName = item.toLowerCase();
     if (categoryName === "all") {
-      setFilteredData(productData.products);
+      setFilteredData(productData.products.slice(0, 4));
     } else if (productData?.products) {
-      const productFilteredData = productData.products.filter(
-        (product: any) => {
+      const productFilteredData = productData.products
+        .filter((product: any) => {
           const productCategory = product.category.toLowerCase();
           return productCategory === categoryName;
-        }
-      );
+        })
+        .slice(0, 4);
       setFilteredData(productFilteredData);
     }
   };
@@ -89,6 +91,12 @@ const Home = () => {
             <p>No Products found</p>
           )}
         </div>
+        <Link
+          href={`/categories/${categoryActive.toLowerCase()}`}
+          className="flex justify-center text-lg underline text-sky-600"
+        >
+          Show {categoryActive}
+        </Link>
         <FAQ />
       </Container>
     </main>

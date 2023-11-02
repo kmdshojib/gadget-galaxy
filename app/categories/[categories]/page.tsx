@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@/app/Components/Common/Container";
 import ProductCard from "@/app/Components/ProductCard/ProductCard";
 import { IPrdoucts } from "@/app/page";
@@ -9,8 +9,21 @@ import Spinner from "@/app/Components/Common/Spinner";
 
 const ProductByCategory = () => {
   const { categories } = useParams();
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const { data, isLoading } = useGetProductByCategoryQuery(categories);
+  const { data, isLoading, refetch } = useGetProductByCategoryQuery({
+    category: categories,
+    page: pageNumber,
+    pageSize: 10,
+  });
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+  const handlePagination = (page: number) => {
+    setPageNumber((perviousPage: number) => {
+      return perviousPage + page;
+    });
+  };
   if (isLoading) {
     return <Spinner />;
   }
@@ -39,6 +52,29 @@ const ProductByCategory = () => {
             <p className="text-rose-500">No Product Found!</p>
           </div>
         )}
+        <div className="join mt-10 flex justify-center">
+          <div className="join grid grid-cols-2">
+            <button
+              disabled={pageNumber === 1}
+              onClick={() => handlePagination(-1)}
+              type="button"
+              className={
+                pageNumber === 1
+                  ? "join-item btn btn-neutral"
+                  : "join-item btn btn-outline"
+              }
+            >
+              Previous page
+            </button>
+            <button
+              onClick={() => handlePagination(+1)}
+              type="button"
+              className="join-item btn btn-outline"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </Container>
     </div>
   );

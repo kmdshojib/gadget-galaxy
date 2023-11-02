@@ -9,7 +9,7 @@ const axiosBaseQuery =
         const axiosConfig: AxiosRequestConfig = {
           url,
           method,
-          params,
+          params: { ...params },
         };
 
         if (method === "POST") {
