@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../Hooks/useRedux";
 import { useGetOrderListQuery } from "@/redux/Services/productService";
 import Container from "../Components/Common/Container";
@@ -10,8 +10,10 @@ import Image from "next/image";
 const Myorders = () => {
   const { auth } = useAppSelector((state) => state);
   const { user }: any = auth;
-  const { data, isLoading } = useGetOrderListQuery(user.email);
-  // console.log(user, data);
+  const { data, isLoading, refetch } = useGetOrderListQuery(user.email);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   if (isLoading) {
     return <Spinner />;
   }

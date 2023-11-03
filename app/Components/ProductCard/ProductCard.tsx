@@ -8,6 +8,7 @@ import { setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { calculateTotalPrice } from "@/app/functions/calcuateCartPrice";
+import { toast } from "react-toastify";
 
 interface ProductCardProps {
   name: string | null;
@@ -23,9 +24,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   id,
 }) => {
   const dispatch = UseAppDispatch();
-  const cartItems = useAppSelector((state) => state.cart);
-
-
+  const { cart: cartItems, auth }: any = useAppSelector((state) => state);
+  const router = useRouter();
   const handleCart = () => {
     const product = {
       id: id,
@@ -34,7 +34,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
       price: price,
       quantity: 1,
     };
-
+    if (auth.token === null && auth.user === null) {
+      toast.error("Please Login to add to Cart!");
+      router.push("/signin");
+      return;
+    }
+    if (auth.user.role !== "buyer") {
+      toast.error(
+        "You must be a buyer to purchase! Please create a buyer account"
+      );
+      return;
+    }
     if (cartItems.items !== null) {
       const findItemIndex = cartItems?.items.findIndex(
         (item: any) => item.id === product.id
@@ -68,7 +78,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt="laptop-Image"
           width={250}
           height={100}
-
           loading="lazy"
           className="object-contain"
         />

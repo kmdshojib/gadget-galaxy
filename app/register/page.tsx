@@ -103,7 +103,11 @@ const Register: React.FC = () => {
                     className={`peer w-full p-4 pt-6 font-light bg-white border-2 outline-none appearance-none transition ${
                       errors.role ? "border-rose-500" : "border-neutral-300"
                     }
-                    ${errors.role ? "focus:border-rose-500" : "focus:border-black"}`}
+                    ${
+                      errors.role
+                        ? "focus:border-rose-500"
+                        : "focus:border-black"
+                    }`}
                   >
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>
@@ -116,18 +120,17 @@ const Register: React.FC = () => {
                   </label>
                 </div>
               </div>
-              <div>
-                <Input
-                  id="image"
-                  label="Choose Profile Photo"
-                  type="file"
-                  register={register}
-                  errors={errors}
-                  fileName={fileNames}
-                  setFileName={setFileNames}
-                  required
-                />
-              </div>
+            <div className="w-full">
+              <Input
+                id="image"
+                type="file"
+                register={register}
+                errors={errors}
+                fileName={fileNames}
+                setFileName={setFileNames}
+                required
+              />
+            </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-center items-center">
