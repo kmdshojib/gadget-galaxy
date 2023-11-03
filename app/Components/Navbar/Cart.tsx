@@ -32,39 +32,43 @@ const Cart: React.FC = () => {
         tabIndex={0}
         className="mt-5 z-[1] card card-compact dropdown-content w-56 h-[350px] lg:w-[300px] bg-base-100 shadow overflow-y-scroll"
       >
-        <div className="card-body">
-          <span className="font-bold text-lg text-rose-500">
-            {cartItems.items !== null
-              ? `Total ${cartItems.items.length - 1} items`
-              : "No items in cart!"}
-          </span>
-          {cartItems.items !== null ? (
-            cartItems.items?.map((item: any, index: number) => {
-              const { name, price, imageUrl, quantity, id } = item;
-              return (
-                <CartCard
-                  key={index + 1}
-                  name={name}
-                  price={price}
-                  imageUrl={imageUrl}
-                  quantity={quantity}
-                  id={id}
-                />
-              );
-            })
-          ) : (
-            <p>No Items in cart!</p>
-          )}
-          <hr />
-          <span className="text-rose-500 font-bold">
-            Total Price: ${cartItems.totalPrice}
-          </span>
-          <hr />
-          <div className="flex justify-between gap-1">
-            <Button outline label="Cart" />
-            <Button onClick={handleCheckOut} label="Checkout" />
-          </div>
-        </div>
+        {cartItems.items !== null && cartItems.items.length > 1 ? (
+          <>
+            <div className="card-body">
+              <span className="font-bold text-lg text-rose-500">
+                {cartItems.items !== null
+                  ? `Total ${cartItems.items.length - 1} items`
+                  : "No items in cart!"}
+              </span>
+              {cartItems.items?.map((item: any, index: number) => {
+                  const { name, price, imageUrl, quantity, id } = item;
+                  return (
+                    <CartCard
+                      key={index + 1}
+                      name={name}
+                      price={price}
+                      imageUrl={imageUrl}
+                      quantity={quantity}
+                      id={id}
+                    />
+                  );
+                })}
+            </div>
+            <div className="m-3">
+              <hr />
+              <span className="text-rose-500 font-bold mb-2">
+                Total Price: ${cartItems.totalPrice}
+              </span>
+              <hr />
+              <div className="flex justify-between gap-1">
+                <Button outline label="Cart" />
+                <Button onClick={handleCheckOut} label="Checkout" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <p className="text-center pt-5 text-rose-500 ">No Items in cart!</p>
+        )}
       </div>
     </div>
   );
