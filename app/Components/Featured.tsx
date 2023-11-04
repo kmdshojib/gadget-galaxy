@@ -14,20 +14,22 @@ const Featured = () => {
       <h1 className="text-4xl font-bold leadi sm:text-5xl text-center my-5">
         Featured
       </h1>
-      <div>
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
         {isLoading ? (
           <SklittonLoader />
         ) : (
           productData.product.map((product: any, index: number) => {
             const { laptopName, images, price, _id } = product;
-            return <div key={index + 1}>
-              <ProductCard
-                id={_id}
-                name={laptopName}
-                imageUrl={images[0]}
-                price={price}
-              />
-            </div>;
+            return (
+              <div key={index + 1}>
+                <ProductCard
+                  id={_id}
+                  name={laptopName}
+                  imageUrl={images[0]}
+                  price={price}
+                />
+              </div>
+            );
           })
         )}
       </div>

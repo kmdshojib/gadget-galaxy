@@ -10,15 +10,14 @@ import Link from "next/link";
 const ProductById = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
-  if (isLoading) {
-    return <Spinner />;
-  }
   const productData: any = data;
 
-  if (productData) {
-    return (
-      <div>
-        <Container>
+  return (
+    <div>
+      <Container>
+        {isLoading ? (
+          <Spinner />
+        ) : (
           <div className="flex flex-col">
             <div className="mt-1 flex justify-center ">
               <div className="carousel w-full mb-3 h-[350px]">
@@ -67,10 +66,10 @@ const ProductById = () => {
               Total items Avalable: {productData?.product?.quantity}
             </p>
           </div>
-        </Container>
-      </div>
-    );
-  }
+        )}
+      </Container>
+    </div>
+  );
 };
 
 export default ProductById;

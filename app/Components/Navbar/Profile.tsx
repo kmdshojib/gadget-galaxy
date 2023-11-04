@@ -80,10 +80,17 @@ const Profile: React.FC = () => {
                   </Link>
                 </>
               )}
-              <Link href="/myorders" className="hover:text-rose-500 transition">
-                <CgBorderRight size={18} />
-                Orders
-              </Link>
+              <>
+                {user?.role === "Buyer" && (
+                  <Link
+                    href="/myorders"
+                    className="hover:text-rose-500 transition"
+                  >
+                    <CgBorderRight size={18} />
+                    Orders
+                  </Link>
+                )}
+              </>
               <p
                 onClick={handleLogout}
                 className="hover:text-rose-500 transition"

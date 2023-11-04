@@ -15,7 +15,7 @@ export interface IPrdoucts {
 }
 
 const Home = () => {
-  const { data, isLoading, refetch } = useGetProductQuery(null);
+  const { data, isLoading,isFetching, refetch } = useGetProductQuery(null);
   const productData: IPrdoucts | null | any = data;
   const [filteredData, setFilteredData] = useState([]);
   const [categoryActive, setCategoryActive] = useState("All");
@@ -77,7 +77,7 @@ const Home = () => {
             ) : (
               filteredData?.map((product: any, index: number) => {
                 const { laptopName, images, price, _id } = product;
-                return isLoading ? (
+                return isFetching ? (
                   <SklittonLoader />
                 ) : (
                   <div key={index + 1}>

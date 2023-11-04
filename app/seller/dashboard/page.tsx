@@ -26,9 +26,6 @@ const SellerDashboard = () => {
   if (user?.role !== "seller") {
     return <ErrorPage />;
   }
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
   const handleDelete = async (id: string) => {
     try {
       const result: any = await deleteProduct(id);
