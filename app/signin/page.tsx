@@ -30,7 +30,7 @@ const SignIn: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const result = await loginMutation(data);
+    const result: any = await loginMutation(data);
     if ("data" in result) {
       dispatch(setUser(result.data));
       toast.success("User Logged in successfully");

@@ -6,6 +6,7 @@ import { IPrdoucts } from "@/app/page";
 import { useGetProductByCategoryQuery } from "@/redux/Services/productService";
 import { useParams } from "next/navigation";
 import Spinner from "@/app/Components/Common/Spinner";
+import SklittonLoader from "@/app/Components/Common/SklittonLoader";
 
 const ProductByCategory = () => {
   const { categories } = useParams();
@@ -24,10 +25,20 @@ const ProductByCategory = () => {
       return perviousPage + page;
     });
   };
-  if (isLoading) {
-    return <Spinner />;
-  }
   const productData: IPrdoucts | null | any = data;
+  if (isLoading === true) {
+    const skeletonLoaders = Array.from(
+      { length: productData?.products?.length || 10 },
+      (_, index) => (
+        <Container key={index}>
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
+            <SklittonLoader />
+          </div>
+        </Container>
+      )
+    );
+    return skeletonLoaders;
+  }
   return (
     <div>
       <Container>

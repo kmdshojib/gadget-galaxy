@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import Hero from "./Components/Hero";
 import FAQ from "./Components/FAQ";
 import Link from "next/link";
+import Featured from "./Components/Featured";
+import SklittonLoader from "./Components/Common/SklittonLoader";
 
 export interface IPrdoucts {
   products: [];
@@ -41,9 +43,9 @@ const Home = () => {
       setFilteredData(productFilteredData);
     }
   };
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   return (
     <main className="flex">
       <Container>
@@ -75,7 +77,9 @@ const Home = () => {
             ) : (
               filteredData?.map((product: any, index: number) => {
                 const { laptopName, images, price, _id } = product;
-                return (
+                return isLoading ? (
+                  <SklittonLoader />
+                ) : (
                   <div key={index + 1}>
                     <ProductCard
                       id={_id}
@@ -97,6 +101,7 @@ const Home = () => {
         >
           Show {categoryActive}
         </Link>
+        <Featured />
         <FAQ />
       </Container>
     </main>

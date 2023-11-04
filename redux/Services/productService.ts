@@ -9,7 +9,7 @@ const productService = apiService.injectEndpoints({
       query: (id: any) => ({ method: "GET", url: `laptop/getProductById/${id}` })
     }),
     getProductByCategory: build.query<any, any>({
-      query: ({ category, page, pageSize })  => ({
+      query: ({ category, page, pageSize }) => ({
         method: "GET",
         url: `laptop/getProductByCategory/${category}?page=${page}&pageSize=${pageSize}`,
       }),
@@ -37,6 +37,9 @@ const productService = apiService.injectEndpoints({
       query: (id: any) => ({
         method: "DELETE", url: `laptop/delete/${id}`
       })
+    }),
+    getFeaturedProduct: build.query<null, null>({
+      query: () => ({ method: "GET", url: "/laptop/featured" })
     })
   }),
 });
@@ -50,5 +53,6 @@ export const {
   useAddOrdersMutation,
   useGetOrderListQuery,
   useGetSellerProductsQuery,
-  useDeleteProductsMutation
+  useDeleteProductsMutation,
+  useGetFeaturedProductQuery
 } = productService;

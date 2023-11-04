@@ -1,9 +1,38 @@
-import React from 'react'
+import { useGetFeaturedProductQuery } from "@/redux/Services/productService";
+import React from "react";
+import ProductCard from "./ProductCard/ProductCard";
+import SklittonLoader from "./Common/SklittonLoader";
+import { IPrdoucts } from "../page";
 
 const Featured = () => {
-  return (
-    <div>Featured</div>
-  )
-}
+  const { data, isLoading }: any = useGetFeaturedProductQuery(null);
+  const productData: IPrdoucts | null | any = data;
+  console.log(data);
 
-export default Featured
+  return (
+    <div>
+      <h1 className="text-4xl font-bold leadi sm:text-5xl text-center my-5">
+        Featured
+      </h1>
+      <div>
+        {isLoading ? (
+          <SklittonLoader />
+        ) : (
+          productData.product.map((product: any, index: number) => {
+            const { laptopName, images, price, _id } = product;
+            return <div key={index + 1}>
+              <ProductCard
+                id={_id}
+                name={laptopName}
+                imageUrl={images[0]}
+                price={price}
+              />
+            </div>;
+          })
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Featured;
