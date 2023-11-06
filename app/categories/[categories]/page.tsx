@@ -31,7 +31,7 @@ const ProductByCategory = () => {
       { length: productData?.products?.length || 10 },
       (_, index) => (
         <Container key={index}>
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
             <SklittonLoader />
           </div>
         </Container>
