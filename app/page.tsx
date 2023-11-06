@@ -16,7 +16,7 @@ export interface IPrdoucts {
 }
 
 const Home = () => {
-  const { data, isLoading,isFetching, refetch } = useGetProductQuery(null);
+  const { data, isLoading, isFetching, refetch } = useGetProductQuery(null);
   const productData: IPrdoucts | null | any = data;
   const [filteredData, setFilteredData] = useState([]);
   const [categoryActive, setCategoryActive] = useState("All");
@@ -73,27 +73,25 @@ const Home = () => {
         </div>
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
           {productData?.product?.length !== 0 ? (
-            isLoading ? (
-              <Spinner />
-            ) : (
-              filteredData?.map((product: any, index: number) => {
-                const { laptopName, images, price, _id } = product;
-                return isFetching ? (
-                  <SklittonLoader />
-                ) : (
-                  <div key={index + 1}>
-                    <ProductCard
-                      id={_id}
-                      name={laptopName}
-                      imageUrl={images[0]}
-                      price={price}
-                    />
-                  </div>
-                );
-              })
-            )
+            filteredData?.map((product: any, index: number) => {
+              const { laptopName, images, price, _id } = product;
+              return isFetching ? (
+                <SklittonLoader />
+              ) : (
+                <div key={index + 1}>
+                  <ProductCard
+                    id={_id}
+                    name={laptopName}
+                    imageUrl={images[0]}
+                    price={price}
+                  />
+                </div>
+              );
+            })
           ) : (
-            <p>No Products found</p>
+            <div className="flex justify-center text-center mt-5">
+              <p className="text-rose-500">No Product Found!</p>
+            </div>
           )}
         </div>
         <Link
