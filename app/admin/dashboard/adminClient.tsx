@@ -15,56 +15,104 @@ const AdminClient = () => {
   };
   return (
     <div className="flex flex-col md:flex-row">
-      {/* navigation */}
-      <div className="flex flex-row md:flex-col bg-neutral-content md:justify-around">
-        <p onClick={handleUsers}>Users</p>
-        <p onClick={handleProduct}>Product</p>
+      {/* Navigation */}
+      <div className="flex flex-row md:flex-col bg-gray-200 md:justify-around p-4">
+        <p
+          className="cursor-pointer p-2 hover:bg-gray-300"
+          onClick={handleUsers}
+        >
+          Users
+        </p>
+        <p
+          className="cursor-pointer p-2 hover:bg-gray-300"
+          onClick={handleProduct}
+        >
+          Product
+        </p>
       </div>
-      <div className="overflow-x-auto ">
+      <div className="overflow-x-auto">
         {users && (
-          <table className="table">
-            {/* head */}
-            <thead>
+          <table className="min-w-full border rounded-lg">
+            {/* Head */}
+            <thead className="bg-gray-200">
               <tr>
-                <th>Index</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Verify</th>
-                <th>Delete</th>
+                <th className="px-4 py-2">Index</th>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Email</th>
+                <th className="px-4 py-2">Verify</th>
+                <th className="px-4 py-2">Delete</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>
+              <tr className="bg-white">
+                <th className="px-4 py-2">1</th>
+                <td className="px-4 py-2">
                   <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        {/* <Image
-                          src="/tailwind-css-component-profile-2@56w.png"
-                          alt="Profile"
-                          width={100}
-                          height={100}
-                        /> */}
+                    <div className="w-12 h-12">
+                      <div className="rounded-full overflow-hidden w-12 h-12">
+                        {/* Your image goes here */}
                       </div>
                     </div>
                     <div>
                       <div className="font-bold">Name</div>
-                      <div className="text-sm opacity-50">Role</div>
+                      <div className="text-sm text-gray-500">Role</div>
                     </div>
                   </div>
                 </td>
-                <td>
+                <td className="px-4 py-2">
                   Zemlak, Daniel and Leannon
                   <br />
-                  <span className="badge badge-ghost badge-sm">
+                  <span className="text-gray-500 text-sm">
                     Desktop Support Technician
                   </span>
                 </td>
-                <td>Purple</td>
-                <th>
-                  <button type="button" className="btn btn-ghost btn-xs">
-                    details
+                <td className="px-4 py-2">Purple</td>
+                <th className="px-4 py-2">
+                  <button className="text-blue-500 hover:underline">
+                    Details
+                  </button>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        )}
+        {product && (
+          <table className="min-w-full border rounded-lg">
+            {/* Head */}
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Email</th>
+                <th className="px-4 py-2">Verify</th>
+                <th className="px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-white">
+                <td className="px-4 py-2">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12">
+                      <div className="rounded-full overflow-hidden w-12 h-12">
+                        {/* Your image goes here */}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">Name</div>
+                      <div className="text-sm text-gray-500">Role</div>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-4 py-2">
+                  Zemlak, Daniel and Leannon
+                  <br />
+                  <span className="text-gray-500 text-sm">
+                    Desktop Support Technician
+                  </span>
+                </td>
+                <td className="px-4 py-2"></td>
+                <th className="px-4 py-2">
+                  <button className="text-blue-500 hover:underline">
+                    Details
                   </button>
                 </th>
               </tr>
