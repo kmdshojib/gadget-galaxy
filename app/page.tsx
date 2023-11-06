@@ -9,6 +9,7 @@ import FAQ from "./Components/FAQ";
 import Link from "next/link";
 import Featured from "./Components/Featured";
 import SklittonLoader from "./Components/Common/SklittonLoader";
+import Testimonials from "./Components/Testimonials";
 
 export interface IPrdoucts {
   products: [];
@@ -101,6 +102,7 @@ const Home = () => {
         >
           Show {categoryActive}
         </Link>
+        <Testimonials />
         <Featured />
         <FAQ />
       </Container>
