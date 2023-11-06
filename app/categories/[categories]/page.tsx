@@ -18,6 +18,7 @@ const ProductByCategory = () => {
     pageSize: 10,
   });
   useEffect(() => {
+    console.log("rendering")
     refetch();
   }, [refetch]);
   const handlePagination = (page: number) => {
@@ -27,22 +28,26 @@ const ProductByCategory = () => {
   };
   const productData: IPrdoucts | null | any = data;
   if (isLoading === true) {
-    const skeletonLoaders = Array.from(
-      { length: productData?.products?.length || 10 },
-      (_, index) => (
-        <Container key={index}>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
-            <SklittonLoader />
-          </div>
-        </Container>
-      )
+    const skeletonLoaders = (
+      <Container>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
+          {Array.from(
+            { length: productData?.products?.length || 10 },
+            (_, index) => (
+              <div key={index}>
+                <SklittonLoader />
+              </div>
+            )
+          )}
+        </div>
+      </Container>
     );
     return skeletonLoaders;
   }
   return (
     <div>
       <Container>
-        {productData?.products.length !== 0 ? (
+        {productData?.products?.length > 0 ? (
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center">
             {productData?.products?.map((product: any, index: number) => {
               const { laptopName, images, price, _id } = product;
@@ -63,29 +68,33 @@ const ProductByCategory = () => {
             <p className="text-rose-500">No Product Found!</p>
           </div>
         )}
-        <div className="join mt-10 flex justify-center">
-          <div className="join grid grid-cols-2">
-            <button
-              disabled={pageNumber === 1}
-              onClick={() => handlePagination(-1)}
-              type="button"
-              className={
-                pageNumber === 1
-                  ? "join-item btn btn-neutral"
-                  : "join-item btn btn-outline"
-              }
-            >
-              Previous page
-            </button>
-            <button
-              onClick={() => handlePagination(+1)}
-              type="button"
-              className="join-item btn btn-outline"
-            >
-              Next
-            </button>
+        {productData?.products?.length > 0 ? (
+          <div className="join mt-10 flex justify-center">
+            <div className="join grid grid-cols-2">
+              <button
+                disabled={pageNumber === 1}
+                onClick={() => handlePagination(-1)}
+                type="button"
+                className={
+                  pageNumber === 1
+                    ? "join-item btn btn-neutral"
+                    : "join-item btn btn-outline"
+                }
+              >
+                Previous page
+              </button>
+              <button
+                onClick={() => handlePagination(+1)}
+                type="button"
+                className="join-item btn btn-outline"
+              >
+                Next
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </Container>
     </div>
   );

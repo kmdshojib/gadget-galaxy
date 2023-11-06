@@ -11,7 +11,7 @@ const ProductById = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
   const productData: any = data;
-
+  console.log(productData);
   return (
     <div>
       <Container>
@@ -21,33 +21,35 @@ const ProductById = () => {
           <div className="flex flex-col">
             <div className="mt-1 flex justify-center ">
               <div className="carousel w-full mb-3 h-[350px]">
-                {productData.product.images.map((image: any, index: number) => {
-                  index = index + 1;
-                  return (
-                    <div
-                      id={`slide${index++}`}
-                      className="carousel-item relative w-full"
-                      key={index++}
-                    >
-                      <Image
-                        className="w-full object-cover"
-                        src={image}
-                        alt="causolImage"
-                        sizes="100vh"
-                        height="0"
-                        width="0"
-                      />
-                      <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <Link href="#slide1" className="btn btn-circle">
-                          ❮
-                        </Link>
-                        <Link href="#slide2" className="btn btn-circle">
-                          ❯
-                        </Link>
+                {productData.product?.images.map(
+                  (image: any, index: number) => {
+                    index = index + 1;
+                    return (
+                      <div
+                        id={`slide${index++}`}
+                        className="carousel-item relative w-full"
+                        key={index++}
+                      >
+                        <Image
+                          className="w-full object-cover"
+                          src={image}
+                          alt="causolImage"
+                          sizes="100vh"
+                          height="0"
+                          width="0"
+                        />
+                        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                          <Link href="#slide1" className="btn btn-circle">
+                            ❮
+                          </Link>
+                          <Link href="#slide2" className="btn btn-circle">
+                            ❯
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  }
+                )}
               </div>
             </div>
             <Link

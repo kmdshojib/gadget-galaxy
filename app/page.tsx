@@ -72,7 +72,7 @@ const Home = () => {
           })}
         </div>
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
-          {productData?.product?.length !== 0 ? (
+          {productData?.products?.length > 0  ? (
             filteredData?.map((product: any, index: number) => {
               const { laptopName, images, price, _id } = product;
               return isFetching ? (
@@ -94,12 +94,16 @@ const Home = () => {
             </div>
           )}
         </div>
-        <Link
-          href={`/categories/${categoryActive.toLowerCase()}`}
-          className="flex justify-center text-lg underline text-sky-600"
-        >
-          Show {categoryActive}
-        </Link>
+        {productData?.products?.length > 0 ? (
+          <Link
+            href={`/categories/${categoryActive.toLowerCase()}`}
+            className="flex justify-center text-lg underline text-sky-600"
+          >
+            Show {categoryActive}
+          </Link>
+        ) : (
+          <></>
+        )}
         <Testimonials />
         <Featured />
         <FAQ />
