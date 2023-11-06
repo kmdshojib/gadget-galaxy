@@ -12,15 +12,15 @@ const Testimonials: React.FC = () => {
             <br className="sm:hidden" />
             50% Off
           </h2>
-          <div className="space-x-2 text-center py-2 lg:py-0 flex">
-            <span className="text-center mt-3">Plus free shipping!</span>
+          <div className="space-x-2 text-center py-2 lg:py-0 flex flex-col md:flex-row">
+            <p className="text-center mt-4">Plus free shipping!</p>
             {/* <span className="font-bold text-lg">Ga</span> */}
             <Link
             href="#featured"
             rel="noreferrer noopener"
             className="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-50 dark:text-gray-900 dark:border-gray-400"
           >
-            Shop Now
+            Shop Now!
           </Link>
           </div>
         </div>
