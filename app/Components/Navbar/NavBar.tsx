@@ -14,16 +14,16 @@ const NavBar = () => {
       <div className="flex flex-row items-center justify-between gap-3">
         <div className="navbar bg-base-100 flex items-center">
           <Logo />
-          <div className="hidden sm:block items-center justify-center ml-5">
+          <div className="hidden md:block items-center justify-center ml-5">
             {/* Center the Search component on small screens */}
             <Search />
           </div>
           <div className="navbar-end flex items-center gap-3">
-            <div className="hidden sm:block">
+            <div className="hidden md:block">
               {/* Hide Cart and Categories on small screens */}
               <Profile />
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden md:block">
               <Categories />
             </div>
             <Cart />

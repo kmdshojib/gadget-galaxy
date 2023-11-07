@@ -12,6 +12,7 @@ import { CgBorderRight } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import Search from "./Search";
 
 const MobileMenu: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth);
@@ -20,7 +21,7 @@ const MobileMenu: React.FC = () => {
     dispatch(logoutUser());
   };
   return (
-    <div className="drawer">
+    <div className="drawer ">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Hamburger Menu Button */}
@@ -36,6 +37,7 @@ const MobileMenu: React.FC = () => {
         ></label>
         <div className="menu p-4 w-80 min-h-full bg-base-200  z-10">
           {/* Sidebar content here */}
+          <Search />
           <div className="collapse collapse-arrow bg-base-200">
             <input
               title="accodrian"
