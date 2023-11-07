@@ -9,36 +9,34 @@ import MobileMenu from "./MobileMenu";
 const NavBar = () => {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-2 border-b-[1px]">
-        <Container>
-          <div className="flex flex-row items-center justify-between gap-3">
-            <div className="navbar bg-base-100 ">
-              <Logo />
-              <div className="hidden sm:block">
-                {" "}
-                {/* Hide Logo on small screens */}
-                {/* <Search /> */}
-              </div>
-              <div className="navbar-end flex items-center gap-3">
-                <div className="hidden sm:block">
-                  {" "}
-                  {/* Hide Cart and Categories on small screens */}
-                  <Profile />
-                </div>
-                <div className="hidden sm:block">
-                  <Categories />
-                </div>
-                <Cart />
-               
-              </div>
-              <div className="md:hidden">
-                <MobileMenu />
-              </div>
-            </div>
+  <div className="py-2 border-b-[1px]">
+    <Container>
+      <div className="flex flex-row items-center justify-between gap-3">
+        <div className="navbar bg-base-100 flex items-center">
+          <Logo />
+          <div className="hidden sm:block items-center justify-center ml-5">
+            {/* Center the Search component on small screens */}
+            <Search />
           </div>
-        </Container>
+          <div className="navbar-end flex items-center gap-3">
+            <div className="hidden sm:block">
+              {/* Hide Cart and Categories on small screens */}
+              <Profile />
+            </div>
+            <div className="hidden sm:block">
+              <Categories />
+            </div>
+            <Cart />
+          </div>
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
+        </div>
       </div>
-    </div>
+    </Container>
+  </div>
+</div>
+
   );
 };
 
