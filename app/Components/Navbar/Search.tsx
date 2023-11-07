@@ -59,8 +59,8 @@ const Search = () => {
       >
         {isLoading ? (
           <p>searching...</p>
-        ) : productData?.searchItem.length !== 0 ? (
-          productData.searchItem.map((item: any) => (
+        ) : productData?.searchItem?.length !== 0 ? (
+          productData?.searchItem?.map((item: any) => (
             <>
               <div
                 key={item._id}
@@ -82,12 +82,12 @@ const Search = () => {
         ) : (
           <p>No Product Found</p>
         )}
-        {productData?.searchItem.length !== 0 && (
+        {productData?.searchItem?.length !== 0 && (
           <Link
             href={`/search/${searchParam}`}
             className="text-center text-sky-600 mt-1 mb-1 hover:cursor-pointer hover:underline"
           >
-            See more ({productData?.searchItem.length})
+            See more ({productData?.searchItem?.length})
           </Link>
         )}
       </div>
