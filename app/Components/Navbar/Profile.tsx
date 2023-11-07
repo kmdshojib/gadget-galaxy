@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
-  console.log({ user });
+
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={1} className="btn btn-ghost btn-circle">
