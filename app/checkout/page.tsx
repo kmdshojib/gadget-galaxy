@@ -73,6 +73,15 @@ const Checkout: React.FC = () => {
               <p className="text-base font-bold text-rose-500">
                 Total Price: ${cart.totalPrice}
               </p>
+              <div>
+                <br />
+                <p className="text-gray-800 font-semibolds">
+                  Test Card: 4242 4242 4242 4242
+                </p>
+                <p className="text-gray-800 font-semibolds">
+                  Expiration: Any Future Date
+                </p>
+              </div>
             </div>
             <div className="mr-3">
               <Elements options={options} stripe={stripe}>

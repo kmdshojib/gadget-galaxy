@@ -14,12 +14,15 @@ import {
   BiUser,
 } from "react-icons/bi";
 import { updateCartItems } from "@/redux/features/cartSlice";
+import { useRouter } from "next/navigation";
 
 const Profile: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth);
+  const router = useRouter()
   const dispatch = UseAppDispatch();
   const handleLogout = () => {
     dispatch(logoutUser());
+    router.push("/")
   };
 
   return (

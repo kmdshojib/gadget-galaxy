@@ -81,6 +81,7 @@ export default function CheckoutForm({ clientSecret }: any) {
       >
         {isLoading ? "Loading..." : "Pay now"}
       </button>
+      
     </form>
   );
 }

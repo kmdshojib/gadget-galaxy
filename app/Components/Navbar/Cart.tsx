@@ -18,6 +18,11 @@ const Cart: React.FC = () => {
       toast.error("Please add Product to cart to continue checkout!");
     }
   };
+  const handleCartPage = () => {
+    toast.warning(
+      "Cart page is Comming Soon! This feature will be availeable after next Update!"
+    );
+  };
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -41,18 +46,18 @@ const Cart: React.FC = () => {
                   : "No items in cart!"}
               </span>
               {cartItems.items?.map((item: any, index: number) => {
-                  const { name, price, imageUrl, quantity, id } = item;
-                  return (
-                    <CartCard
-                      key={index + 1}
-                      name={name}
-                      price={price}
-                      imageUrl={imageUrl}
-                      quantity={quantity}
-                      id={id}
-                    />
-                  );
-                })}
+                const { name, price, imageUrl, quantity, id } = item;
+                return (
+                  <CartCard
+                    key={index + 1}
+                    name={name}
+                    price={price}
+                    imageUrl={imageUrl}
+                    quantity={quantity}
+                    id={id}
+                  />
+                );
+              })}
             </div>
             <div className="m-3">
               <hr />
@@ -61,7 +66,7 @@ const Cart: React.FC = () => {
               </span>
               <hr />
               <div className="flex justify-between gap-1">
-                <Button outline label="Cart" />
+                <Button onClick={handleCartPage} outline label="Cart" />
                 <Button onClick={handleCheckOut} label="Checkout" />
               </div>
             </div>
