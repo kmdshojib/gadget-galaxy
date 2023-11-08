@@ -74,7 +74,7 @@ const Home = () => {
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
           {productData?.products?.length > 0  ? (
             filteredData?.map((product: any, index: number) => {
-              const { laptopName, images, price, _id } = product;
+              const { laptopName, images, price, _id,discountedPrice } = product;
               return isFetching ? (
                 <SklittonLoader />
               ) : (
@@ -84,6 +84,7 @@ const Home = () => {
                     name={laptopName}
                     imageUrl={images[0]}
                     price={price}
+                    discountedPrice={discountedPrice}
                   />
                 </div>
               );

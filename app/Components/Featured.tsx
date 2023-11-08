@@ -8,7 +8,7 @@ const Featured = () => {
   const { data, isLoading, isFetching, refetch }: any =
     useGetFeaturedProductQuery(null);
   const productData: IPrdoucts | null | any = data;
-  
+
   useEffect(() => {
     refetch();
   }, [refetch]);
@@ -21,9 +21,9 @@ const Featured = () => {
         Featured
       </h1>
       <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
-        {productData?.products?.length!==0 ? (
+        {productData?.products?.length !== 0 ? (
           productData?.product?.map((product: any, index: number) => {
-            const { laptopName, images, price, _id } = product;
+            const { laptopName, images, price, _id, discountedPrice } = product;
             return isFetching ? (
               <SklittonLoader />
             ) : (
@@ -33,6 +33,7 @@ const Featured = () => {
                   name={laptopName}
                   imageUrl={images[0]}
                   price={price}
+                  discountedPrice={discountedPrice}
                 />
               </div>
             );

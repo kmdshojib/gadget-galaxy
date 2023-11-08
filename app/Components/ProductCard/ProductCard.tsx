@@ -15,6 +15,7 @@ interface ProductCardProps {
   imageUrl: HTMLImageElement;
   price: number | null;
   id: string | null;
+  discountedPrice?: number | null;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -22,6 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl,
   price,
   id,
+  discountedPrice,
 }) => {
   const dispatch = UseAppDispatch();
   const { cart: cartItems, auth }: any = useAppSelector((state) => state);
@@ -90,7 +92,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {" "}
           {name}
         </Link>
-        <p className="text-rose-500 text-lg font-bold">{price}$</p>
+        {discountedPrice ? (
+          <p>
+            <span className="text-rose-500 text-lg font-bold mr-3">
+              ${discountedPrice}
+            </span>
+            <span className="line-through text-lg font-semibold text-neutral-500">${price}</span>
+          </p>
+        ) : (
+          <p className="text-rose-500 text-lg font-bold">${price}</p>
+        )}
         <div className="card-actions justify-end">
           <Button
             onClick={handleCart}

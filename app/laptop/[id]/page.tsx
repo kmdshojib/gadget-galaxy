@@ -1,17 +1,20 @@
 "use client";
+import React, { useEffect } from "react";
 import Container from "@/app/Components/Common/Container";
 import Spinner from "@/app/Components/Common/Spinner";
 import { useGetProductByIdQuery } from "@/redux/Services/productService";
 import { useParams } from "next/navigation";
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const ProductById = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetProductByIdQuery(id);
+  const { data, isLoading, refetch } = useGetProductByIdQuery(id);
   const productData: any = data;
   console.log(productData);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <div>
       <Container>
@@ -61,8 +64,18 @@ const ProductById = () => {
             <div className="mt-2 font-extrabold text-xl text-gray-800">
               {productData?.product?.laptopName}
             </div>
-            <p className="mt-2 font-semibold text-gray-800">
-              Price:${productData?.product?.price}
+            <p className="mt-2 font-bold text-gray-800">
+              Price:
+              {productData?.product?.discountedPrice ? (
+                <>
+                  <span className="line-through mr-3">
+                     ${productData?.product?.price}
+                  </span>
+                  <span>${productData?.product?.discountedPrice}</span>
+                </>
+              ) : (
+                <span>{productData?.product?.price}</span>
+              )}
             </p>
             <p className="mt-2 font-semibold text-gray-800">
               Total items Avalable: {productData?.product?.quantity}
