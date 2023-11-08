@@ -75,7 +75,7 @@ const Home = () => {
           {productData?.products?.length > 0  ? (
             filteredData?.map((product: any, index: number) => {
               const { laptopName, images, price, _id,discountedPrice } = product;
-              return isFetching ? (
+              return isFetching || isLoading ? (
                 <SklittonLoader />
               ) : (
                 <div key={index + 1}>
