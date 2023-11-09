@@ -18,11 +18,11 @@ application redefines the online shopping experience.
 
 | Client | Server |
 | -------- | -------- |
-| TypeScript| | NodeJs|
-|NextJS| | ExpressJs|
-|Redux-Toolkit| |TypeScript|
-|Axios| |Mongoose ODM|
-|Tailwind CSS| |MongoDB|
+| TypeScript | NodeJs|
+|NextJS |  ExpressJs|
+|Redux-Toolkit |TypeScript|
+|Axios | Mongoose ODM|
+|Tailwind CSS | MongoDB|
 
 
 ## Test Credentials
