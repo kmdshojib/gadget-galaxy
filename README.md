@@ -1,15 +1,14 @@
 
 # Gadget Galaxy
 
-This is a **Full Stack** Tech E-commerce Web app. Which is dynamic and feature-rich 
-application redefines the online shopping experience.
+This is a **Full Stack** Tech E-commerce Web app. Which is a dynamic and feature-rich application that redefines the online shopping experience.
 
 - [Live](https://galaxy-gadget.vercel.app/)
 - [Server](https://github.com/kmdshojib/gadget-galaxy-backend)
 ## Features
 
-- Shoping Cart
-- Advance search By Name
+- Shopping Cart
+- Advanced Search By Name
 - Sort Product according to category
 - Stripe Payment
 - Different User System
