@@ -3,6 +3,7 @@ import { calculateTotalPrice } from "@/app/functions/calcuateCartPrice";
 import { setCartTotalPrice, updateCartItems } from "@/redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback } from "react";
 import { TiDelete } from "react-icons/ti";
 
 interface ICartProps {
@@ -22,13 +23,13 @@ const CartCard: React.FC<ICartProps> = ({
   const { cart: cartItems } = useAppSelector((state: any) => state);
   const dispatch = UseAppDispatch();
 
-  const handleRemoveFromCart = () => {
+  const handleRemoveFromCart = useCallback(() => {
     const filteredItems = cartItems.items.filter((item: any) => item.id !== id);
     const totalPrice = calculateTotalPrice(filteredItems);
 
     dispatch(updateCartItems(filteredItems));
     dispatch(setCartTotalPrice(totalPrice));
-  };
+  }, [cartItems.items, dispatch, id]);
 
   return (
     <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-1 text-gray-100">

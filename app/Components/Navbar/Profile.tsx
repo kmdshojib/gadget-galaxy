@@ -15,15 +15,16 @@ import {
 } from "react-icons/bi";
 import { updateCartItems } from "@/redux/features/cartSlice";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 const Profile: React.FC = () => {
   const { user, token } = useAppSelector((state) => state.auth);
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = UseAppDispatch();
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logoutUser());
-    router.push("/")
-  };
+    router.push("/");
+  }, [dispatch, router]);
 
   return (
     <div className="dropdown dropdown-end">
@@ -84,7 +85,7 @@ const Profile: React.FC = () => {
                 </>
               )}
               <>
-                {user?.role === "Buyer" && (
+                {user?.role === "buyer" && (
                   <Link
                     href="/myorders"
                     className="hover:text-rose-500 transition"

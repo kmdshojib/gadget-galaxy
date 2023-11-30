@@ -2,8 +2,7 @@
 import { useGetProductQuery } from "@/redux/Services/productService";
 import Container from "./Components/Common/Container";
 import ProductCard from "./Components/ProductCard/ProductCard";
-import Spinner from "./Components/Common/Spinner";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Hero from "./Components/Hero";
 import FAQ from "./Components/FAQ";
 import Link from "next/link";
@@ -29,21 +28,24 @@ const Home = () => {
     }
   }, [productData, refetch]);
 
-  const handleCategory = (item: string) => {
-    setCategoryActive(item);
-    const categoryName = item.toLowerCase();
-    if (categoryName === "all") {
-      setFilteredData(productData.products.slice(0, 4));
-    } else if (productData?.products) {
-      const productFilteredData = productData.products
-        .filter((product: any) => {
-          const productCategory = product.category.toLowerCase();
-          return productCategory === categoryName;
-        })
-        .slice(0, 4);
-      setFilteredData(productFilteredData);
-    }
-  };
+  const handleCategory = useCallback(
+    (item: string) => {
+      setCategoryActive(item);
+      const categoryName = item.toLowerCase();
+      if (categoryName === "all") {
+        setFilteredData(productData.products.slice(0, 4));
+      } else if (productData?.products) {
+        const productFilteredData = productData.products
+          .filter((product: any) => {
+            const productCategory = product.category.toLowerCase();
+            return productCategory === categoryName;
+          })
+          .slice(0, 4);
+        setFilteredData(productFilteredData);
+      }
+    },
+    [productData.products]
+  );
   // if (isLoading) {
   //   return <Spinner />;
   // }
@@ -72,9 +74,10 @@ const Home = () => {
           })}
         </div>
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3 items-center justify-center mb-10">
-          {productData?.products?.length > 0  ? (
+          {productData?.products?.length > 0 ? (
             filteredData?.map((product: any, index: number) => {
-              const { laptopName, images, price, _id,discountedPrice } = product;
+              const { laptopName, images, price, _id, discountedPrice } =
+                product;
               return isFetching || isLoading ? (
                 <SklittonLoader />
               ) : (
