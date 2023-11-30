@@ -1,7 +1,7 @@
 "use client";
 
-import { UseAppDispatch, useAppSelector } from "@/app/Hooks/useRedux";
-import React from "react";
+import { useAppSelector } from "@/app/Hooks/useRedux";
+import React, { useCallback } from "react";
 import { BsCartFill } from "react-icons/bs";
 import CartCard from "../cart-card/cartCard";
 import Button from "../Common/Button";
@@ -11,18 +11,19 @@ import { toast } from "react-toastify";
 const Cart: React.FC = () => {
   const { cart: cartItems, auth } = useAppSelector((state: any) => state);
   const router = useRouter();
-  const handleCheckOut = () => {
+  const handleCheckOut = useCallback(() => {
     if (auth.token && auth.user && cartItems.items.length > 1) {
       router.push("/checkout");
     } else {
       toast.error("Please add Product to cart to continue checkout!");
     }
-  };
-  const handleCartPage = () => {
+  }, [cartItems.items.length, auth.token, auth.user, router]);
+
+  const handleCartPage = useCallback(() => {
     toast.warning(
       "Cart page is Comming Soon! This feature will be availeable after next Update!"
     );
-  };
+  }, []);
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle">

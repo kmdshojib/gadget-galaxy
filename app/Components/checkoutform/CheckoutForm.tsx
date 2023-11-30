@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -17,15 +17,21 @@ export default function CheckoutForm({ clientSecret }: any) {
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const filteredProduct = (cart.items ?? [])
-    .filter((item: any) => item.id !== null && item.quantity !== null)
-    .map((item: any) => ({ id: item.id, quantity: item.quantity }));
-
-  const data = {
-    customerEmail: auth.user?.email,
-    price: cart.totalPrice,
-    product: filteredProduct,
-  };
+  const filteredProduct = useMemo(
+    () =>
+      (cart.items ?? [])
+        .filter((item: any) => item.id !== null && item.quantity !== null)
+        .map((item: any) => ({ id: item.id, quantity: item.quantity })),
+    [cart.items]
+  );
+  const data = useMemo(
+    () => ({
+      customerEmail: auth.user?.email,
+      price: cart.totalPrice,
+      product: filteredProduct,
+    }),
+    [auth.user?.email, cart.totalPrice, filteredProduct]
+  );
 
   useEffect(() => {
     if (!stripe) {
@@ -40,35 +46,47 @@ export default function CheckoutForm({ clientSecret }: any) {
     });
   }, [stripe, clientSecret]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
-    setIsLoading(true);
-    const result: any = await addOrders(data);
-    console.log(result);
-    if (result) {
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          payment_method: "card",
-          return_url: "http://localhost:3000/",
-        },
-      });
-      if (
-        error &&
-        (error.type === "card_error" || error.type === "validation_error")
-      ) {
-        setMessage("Something went wrong!");
-      } else {
-        toast.success("Your payment succeeded");
+      if (!stripe || !elements) {
+        return;
       }
 
-      setIsLoading(false);
-    }
-  };
+      setIsLoading(true);
+
+      try {
+        const result: any = await addOrders(data);
+        console.log(result);
+
+        if (result) {
+          const { error } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+              payment_method: "card",
+              return_url: "http://localhost:3000/",
+            },
+          });
+
+          if (
+            error &&
+            (error.type === "card_error" || error.type === "validation_error")
+          ) {
+            setMessage("Something went wrong!");
+          } else {
+            toast.success("Your payment succeeded");
+          }
+        }
+      } catch (error) {
+        console.error("Error processing payment:", error);
+        setMessage("Something went wrong!");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [stripe, elements, addOrders, data]
+  );
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <p className="text-black mb-4">Complete your payment here!</p>
@@ -81,7 +99,6 @@ export default function CheckoutForm({ clientSecret }: any) {
       >
         {isLoading ? "Loading..." : "Pay now"}
       </button>
-      
     </form>
   );
 }

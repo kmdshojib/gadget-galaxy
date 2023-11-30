@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Input from "../Components/Common/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import Button from "../Components/Common/Button";
@@ -29,16 +29,25 @@ const SignIn: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const result: any = await loginMutation(data);
-    if ("data" in result) {
-      dispatch(setUser(result.data));
-      toast.success("User Logged in successfully");
-      router.push("/");
-    } else {
-      toast.error("Login Failed check your email or password!");
-    }
-  };
+  const onSubmit: SubmitHandler<FieldValues> = useCallback(
+    async (data: FieldValues) => {
+      try {
+        const result = await loginMutation(data);
+
+        if ("data" in result) {
+          dispatch(setUser(result.data));
+          toast.success("User Logged in successfully");
+          router.push("/");
+        } else {
+          toast.error("Login Failed: Check your email or password!");
+        }
+      } catch (error) {
+        console.error("Login Error:", error);
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    },
+    [dispatch, router, loginMutation]
+  );
 
   return (
     <div className="flex items-center justify-center">

@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "./Common/Button";
-import Image from "next/image";
 import Typewriter from "typewriter-effect";
 
 const Hero: React.FC = () => {
