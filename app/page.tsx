@@ -44,7 +44,7 @@ const Home = () => {
         setFilteredData(productFilteredData);
       }
     },
-    [productData.products]
+    [productData?.products]
   );
   // if (isLoading) {
   //   return <Spinner />;

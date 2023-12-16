@@ -11,7 +11,7 @@ import { setUser } from "@/redux/features/authSlice";
 import { toast } from "react-toastify";
 import Spinner from "../Components/Common/Spinner";
 import { useRouter, usePathname } from "next/navigation";
-
+import { FcGoogle } from "react-icons/fc";
 const SignIn: React.FC = () => {
   const [loginMutation, { isLoading }] = useLoginUserMutation();
   const path = usePathname();
@@ -49,6 +49,9 @@ const SignIn: React.FC = () => {
     [dispatch, router, loginMutation]
   );
 
+  const handleGoogleSignIn = () => {
+    toast.warning("The feature is coming soon!");
+  };
   return (
     <div className="flex items-center justify-center">
       {isLoading ? (
@@ -101,6 +104,15 @@ const SignIn: React.FC = () => {
             <div className="space-y-2">
               <div>
                 <Button label="Sign In" buttonType="submit" />
+              </div>
+              <div>
+                <Button
+                  onClick={handleGoogleSignIn}
+                  icon={FcGoogle}
+                  outline
+                  buttonType="button"
+                  label="Google"
+                />
               </div>
               <p className="px-6 text-sm text-center text-gray-600">
                 Don&apos;t have an account yet?
