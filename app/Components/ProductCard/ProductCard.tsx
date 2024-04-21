@@ -36,12 +36,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
       price: price,
       quantity: 1,
     };
-    if (auth.token === null && auth.user === null) {
+    if ( auth.user === null || auth.token === null) {
       toast.error("Please Login to add to Cart!");
       router.push("/signin");
       return;
     }
-    if (auth.user.role !== "buyer") {
+    if (auth.user?.role !== "buyer") {
       toast.error(
         "You must be a buyer to purchase! Please create a buyer account"
       );
@@ -97,7 +97,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <span className="text-rose-500 text-lg font-bold mr-3">
               ${discountedPrice}
             </span>
-            <span className="line-through text-lg font-semibold text-neutral-500">${price}</span>
+            <span className="line-through text-lg font-semibold text-neutral-500">
+              ${price}
+            </span>
           </p>
         ) : (
           <p className="text-rose-500 text-lg font-bold">${price}</p>
