@@ -3,9 +3,10 @@ import Axios, { AxiosRequestConfig, AxiosError } from "axios";
 
 const axiosBaseQuery = (): BaseQueryFn<AxiosRequestConfig, unknown, AxiosError> => async ({ url, method, data, params }) => {
   try {
-    const baseURL = process.env.NODE_ENV === 'production'
-      ? "https://gadget-galaxy-backend.vercel.app/api/v1/"
-      : "http://localhost:5000/api/v1/";
+    const baseURL ="https://gadget-galaxy-backend.vercel.app/api/v1/"
+    // const baseURL = process.env.NODE_ENV === 'production'
+    //   ? "https://gadget-galaxy-backend.vercel.app/api/v1/"
+    //   : "http://localhost:5000/api/v1/";
 
     Axios.defaults.baseURL = baseURL;
 
