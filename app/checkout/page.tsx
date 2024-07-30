@@ -19,7 +19,7 @@ const Checkout: React.FC = () => {
   useEffect(() => {
     if (!clientSecret) {
       if (auth.user?.email && cart.totalPrice && filteredProduct.length > 0) {
-        fetch("http://localhost:5000/api/v1/laptop/payment", {
+        fetch("https://gadget-galaxy-backend.vercel.app/api/v1/laptop/payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ price: cart.totalPrice }),
